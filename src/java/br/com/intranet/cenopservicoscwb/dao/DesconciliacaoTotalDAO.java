@@ -10,6 +10,7 @@ import br.com.intranet.cenopservicoscwb.bean.util.Utils;
 import br.com.intranet.cenopservicoscwb.connectionfactory.ConnectionFactory;
 import br.com.intranet.cenopservicoscwb.entity.DesconciliacaoOB;
 import br.com.intranet.cenopservicoscwb.entity.Funcionario;
+import br.com.intranet.cenopservicoscwb.entity.OrcadoRealizado;
 import br.com.intranet.cenopservicoscwb.jpa.EntityManagerUtil;
 import java.sql.Connection;
 import java.sql.Date;
@@ -33,7 +34,7 @@ public class DesconciliacaoTotalDAO implements CrudDAO<DesconciliacaoOB> {
 
     @Override
     public void salvar(DesconciliacaoOB entidade) throws ErroSistema {
-  GrupoStatusDAO statusDAO = new GrupoStatusDAO();
+ GrupoStatusDAO statusDAO = new GrupoStatusDAO();
         GrupoTratamentoDAO tratamentoDAO = new GrupoTratamentoDAO();
         FacesContext fc = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
@@ -127,6 +128,7 @@ public class DesconciliacaoTotalDAO implements CrudDAO<DesconciliacaoOB> {
     
     public void gerarOrcado(DesconciliacaoOB entidade) throws ErroSistema {
 
+       
         GrupoStatusDAO statusDAO = new GrupoStatusDAO();
         GrupoTratamentoDAO tratamentoDAO = new GrupoTratamentoDAO();
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -136,70 +138,32 @@ public class DesconciliacaoTotalDAO implements CrudDAO<DesconciliacaoOB> {
         if (entidade.getTratadoPrazo() != null) {
             return;
         }
+        
+        OrcadoRealizado orcadoRealizado = new OrcadoRealizado();
+        
+        orcadoRealizado.setCodigoDesconciliacao(entidade.getCodigoDesconciliacao());
+        orcadoRealizado.setAutor(entidade.getAutor());
+        orcadoRealizado.setCodigoDesconciliacao(entidade.getCodigoSituacao());
+        orcadoRealizado.setCodigoTratamento(entidade.getCodigoTratamento());
 
-        try {
-            String sql;
-            PreparedStatement stmt = null;
-            Connection con = ConnectionFactory.conectar("rejud_ob");
-
-            sql = "INSERT INTO tb_orcado_realizado_desconciliacao_ob_paj (NPJ,VARIACAO_NPJ,SITUACAO,AUTOR,CONTA_DEPOSITARIA,VALOR_DESCONCILIACAO,"
-                    + "DATA_DESCONCILIACAO,TRATADO_PRAZO,SALDO_DEPOSITO,DATA_SITUACAO,DATA_RETORNO_AGENCIA,"
-                    + "FUNCIONARIO_RESPONSAVEL_SITUACAO,FUNCIONARIO_ATUAL,NOME_TRATAMENTO,"
-                    + "DIAS_DESCONCILIADO,DATA_ENTRADA_BD,DATA_PRIMEIRO_TRATAMENTO)"
-                    + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-            stmt = con.prepareStatement(sql);
-
-            stmt.setString(1, entidade.getNpj());
-            stmt.setInt(2, entidade.getVariacaoNpj());
-            stmt.setString(3, entidade.getSituacao());
-            stmt.setString(4, entidade.getAutor());
-            stmt.setString(5, entidade.getContaDepositaria());
-            stmt.setDouble(6, entidade.getValorDesconciliacao());
-
-            stmt.setDate(7, (Date) entidade.getDataDesconciliacao());
-            if (entidade.getDiasDesconciliado() <= 10) {
-                stmt.setString(8, "SIM");
-            } else {
-                stmt.setString(8, "NAO");
-            }
-
-            stmt.setDouble(9, entidade.getSaldoDeposito());
-            stmt.setDate(10, (Date) entidade.getDataSituacao());
-            stmt.setDate(11, (Date) entidade.getDataRetornoAgencia());
-            stmt.setString(12, usuario.getChave());
-            stmt.setString(13, entidade.getFuncionarioAtual());
-            stmt.setString(14, entidade.getNomeTratamento());
-            stmt.setInt(15, entidade.getDiasDesconciliado());
-
-            stmt.setDate(16, (Date) entidade.getDataEntradaBd());
-
+         EntityManager em  = EntityManagerUtil.getEntityManager();
+        
+        try{
+          em.getTransaction().begin();
+          em.persist(orcadoRealizado);
+          em.getTransaction().commit();
             
+        }catch(Exception e){
+            System.err.println("");
+            em.getTransaction().rollback();
+        }finally{
             
-            if(entidade.getDataPrimeiroTratamento() == null){
-                try {
-                    entidade.setDataPrimeiroTratamento(Utils.getDataAtualFormatoMysql());
-                } catch (Exception ex) {
-                   throw new ErroSistema("Erro ao tentar salvar data atual na tabela de orcado", ex);
-                }
-            }
-            
-            
-            
-            
-            stmt.setDate(17, (Date) entidade.getDataPrimeiroTratamento());
-
-            stmt.executeUpdate();
-
-        } catch (SQLException ex) {
-
-            throw new ErroSistema("Erro ao tentar salvar orcado", ex);
-
-        } finally {
-
-            ConnectionFactory.fecharConexao();
-
+            em.close();
         }
-
+        
+        
+        
+        
     }
 
 
@@ -299,23 +263,58 @@ public class DesconciliacaoTotalDAO implements CrudDAO<DesconciliacaoOB> {
 
     @Override
     public List<DesconciliacaoOB> buscar() throws ErroSistema {
-        EntityManager em = EntityManagerUtil.getEntityManager();
-        
-        List<DesconciliacaoOB>  desconciliacoesOB = new ArrayList<>();
-        
-        try{
-          desconciliacoesOB = em.createQuery("FROM DesconciliacaoOB desconciliacaoOB").getResultList();
-            
-            
-            
-            
-            
-        }catch(Exception ex){
-            System.err.println(ex);
+        try {
+            Connection con = ConnectionFactory.conectar("rejud_ob");
+            String sql = "SELECT * FROM tb_desconciliacao_ob_paj";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            List<DesconciliacaoOB> desconciliacoes = new ArrayList<>();
+
+            while (rs.next()) {
+
+                DesconciliacaoOB desconciliacao = new DesconciliacaoOB();
+
+                desconciliacao.setCodigoDesconciliacao(rs.getInt("CODIGO_DESCONCILIACAO"));
+                desconciliacao.setNpj(rs.getString("NPJ"));
+                desconciliacao.setVariacaoNpj(rs.getInt("VARIACAO_NPJ"));
+                desconciliacao.setContaControle(rs.getString("CONTA_CONTROLE"));
+                desconciliacao.setContaDepositaria(rs.getString("CONTA_DEPOSITARIA"));
+                desconciliacao.setSaldoContaControle(rs.getDouble("SALDO_CONTA_CONTROLE"));
+                desconciliacao.setSaldoDeposito(rs.getDouble("SALDO_DEPOSITO"));
+                desconciliacao.setValorDesconciliacao(rs.getDouble("VALOR_DESCONCILIACAO"));
+                desconciliacao.setSituacao(rs.getString("SITUACAO"));
+                desconciliacao.setDataSituacao(rs.getDate("DATA_SITUACAO"));
+                desconciliacao.setFuncionarioResponsavelSituacao(rs.getString("FUNCIONARIO_RESPONSAVEL_SITUACAO"));
+                desconciliacao.setFuncionarioAtual(rs.getString("FUNCIONARIO_ATUAL"));
+                desconciliacao.setNomeTratamento(rs.getString("NOME_TRATAMENTO"));
+                desconciliacao.setAvocado(rs.getString("AVOCADO"));
+                desconciliacao.setDataAvocacao(rs.getDate("DATA_AVOCACAO"));
+                desconciliacao.setDataDesconciliacao(rs.getDate("DATA_DESCONCILIACAO"));
+                desconciliacao.setDiasDesconciliado(rs.getInt("DIAS_DESCONCILIADO"));
+                desconciliacao.setDataEntradaBd(rs.getDate("DATA_ENTRADA_BD"));
+                desconciliacao.setObsLivre(rs.getString("OBS_LIVRE"));
+                desconciliacao.setAutor(rs.getString("AUTOR"));
+                desconciliacao.setMateria(rs.getString("MATERIA"));
+                desconciliacao.setAssunto(rs.getString("ASSUNTO"));
+                desconciliacao.setDataPrimeiroTratamento(rs.getDate("DATA_PRIMEIRO_TRATAMENTO"));
+                desconciliacao.setDiasDesconciliado(rs.getInt("DIAS_DESCONCILIADO"));
+                desconciliacao.setTratadoPrazo(rs.getString("TRATADO_PRAZO"));
+                desconciliacao.setDataRetornoAgencia(rs.getDate("DATA_RETORNO_AGENCIA"));
+                desconciliacao.setBancoDepositario(rs.getString("BANCO_DEPOSITARIO"));
+                
+                desconciliacoes.add(desconciliacao);
+
+            }
+
+            ConnectionFactory.fecharConexao();
+
+            return desconciliacoes;
+
+        } catch (SQLException ex) {
+            throw new ErroSistema("Erro ao listar dados", ex);
+        } finally {
+            ConnectionFactory.fecharConexao();
         }
-       
-        return  desconciliacoesOB;
-           
 
     }
 

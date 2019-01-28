@@ -50,7 +50,7 @@ public class FuncionarioBean extends CrudBean<Funcionario, FuncionarioDAO>{
             
             
             
-            if(usuario.getUORPosicao() !=  286409 && usuario.getUORPosicao() !=  287339  && usuario.getUORPosicao() !=  286399 && usuario.getUORPosicao() !=  284646   && usuario.getUORPosicao() !=  454062  && usuario.getUORPosicao() !=  10544 && usuario.getUORPosicao() !=  79771   ){
+            if(usuario.getUORPosicao() !=  286409 && usuario.getUORPosicao() !=  287339  && usuario.getUORPosicao() !=  286399 && usuario.getUORPosicao() !=  284646   && usuario.getUORPosicao() !=  454062  && usuario.getUORPosicao() !=  10544 && usuario.getUORPosicao() !=  79771 && usuario.getUORPosicao() != 286369 ){
                 
                 try {
                    FacesContext.getCurrentInstance().getExternalContext().redirect("sem-acesso.jsf");

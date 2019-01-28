@@ -15,15 +15,21 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author suporte
+ * @author f5078775
  */
 @Entity
 @Table(name = "tb_grupo_tratamento")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "GrupoTRatamento.findAll", query = "SELECT g FROM GrupoTRatamento g")})
+    @NamedQuery(name = "GrupoTratamento.findAll", query = "SELECT g FROM GrupoTratamento g")
+    , @NamedQuery(name = "GrupoTratamento.findByCodigoTratamento", query = "SELECT g FROM GrupoTratamento g WHERE g.codigoTratamento = :codigoTratamento")
+    , @NamedQuery(name = "GrupoTratamento.findByNomeTratamento", query = "SELECT g FROM GrupoTratamento g WHERE g.nomeTratamento = :nomeTratamento")})
 public class GrupoTratamento implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -33,6 +39,8 @@ public class GrupoTratamento implements Serializable {
     @Column(name = "CODIGO_TRATAMENTO")
     private Integer codigoTratamento;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 200)
     @Column(name = "NOME_TRATAMENTO")
     private String nomeTratamento;
 
@@ -86,7 +94,7 @@ public class GrupoTratamento implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.intranet.cenopservicoscwb.entity.GrupoTRatamento[ codigoTratamento=" + codigoTratamento + " ]";
+        return "br.com.intranet.cenopservicoscwb.entity.GrupoTratamento[ codigoTratamento=" + codigoTratamento + " ]";
     }
     
 }

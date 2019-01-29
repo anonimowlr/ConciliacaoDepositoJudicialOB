@@ -29,9 +29,8 @@
 
 
                     <p:commandButton  value="Salvar" action="#{desconciliacaoTotalBean.validarParaSalvar()}" rendered="#{desconciliacaoTotalBean.isBuscar()==false}" update=":frmPrincipal"></p:commandButton>
-                    <p:commandButton  value="Voltar para base" action="#{desconciliacaoTotalBean.buscar()}"  update=":frmPrincipal"></p:commandButton>
+                    <p:commandButton  value="Voltar para base" icon=" ui-icon-arrowrefresh-1-w" action="#{desconciliacaoTotalBean.buscar()}"  update=":frmPrincipal"></p:commandButton>
                    
-                    <p:button  style="width: 150px"  value="Inédito" href="gerenciar-inedito.jsf"   target="_blank"/>
                 </p:toolbarGroup>
 
             </p:toolbar>
@@ -40,7 +39,7 @@
                 <p:toolbarGroup >
 
 
-                    <p:commandButton  value="Atualizar página"  actionListener="#{desconciliacaoTotalBean.buscar()}"   rendered="#{desconciliacaoTotalBean.isBuscar()}"  update=":frmPrincipal"></p:commandButton>
+                    <p:commandButton  value="Atualizar página" icon=" ui-icon-arrowrefresh-1-e"  actionListener="#{desconciliacaoTotalBean.buscar()}"   rendered="#{desconciliacaoTotalBean.isBuscar()}"  update=":frmPrincipal"></p:commandButton>
                 </p:toolbarGroup>
 
             </p:toolbar>

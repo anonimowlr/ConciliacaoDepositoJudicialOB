@@ -31,7 +31,6 @@
                     <p:commandButton  value="Salvar" action="#{desconciliacaoNaoTratadaBean.validarParaSalvar()}" rendered="#{desconciliacaoNaoTratadaBean.isBuscar()==false}" update=":frmPrincipal"></p:commandButton>
                     <p:commandButton  value="Voltar para lista" action="#{desconciliacaoNaoTratadaBean.buscar()}"  update=":frmPrincipal"></p:commandButton>
                    
-                    <p:commandButton  style="width: 150px"  value="Inédito" > </p:commandButton>
                 </p:toolbarGroup>
 
             </p:toolbar>
@@ -88,8 +87,8 @@
                 <p:inputText  value="#{desconciliacaoNaoTratadaBean.entidade.contaControle}"  disabled="true" style="color: blue"></p:inputText>
               
                 
-                <h:outputLabel for="" value="Autor"></h:outputLabel>
-                <h:outputLabel  value="#{desconciliacaoNaoTratadaBean.entidade.autor}"   style="color: blue"/>
+                <h:outputLabel for="" value="Banco depositario"></h:outputLabel>
+                <h:outputLabel  value="#{desconciliacaoNaoTratadaBean.entidade.bancoDepositario}"   style="color: blue"/>
                 
                 <h:outputLabel for="" value="Matéria"></h:outputLabel>
                 <h:outputLabel  value="#{desconciliacaoNaoTratadaBean.entidade.materia}"   style="color: blue"/>
@@ -166,7 +165,7 @@
                         <h:commandLink>
                             <h:graphicImage  width="50px" library="imagens" name="excel.png" title="Exportar para Excel" ></h:graphicImage>
 
-                            <p:dataExporter type="csv" target="tblNaoTratados" fileName="tblNaoTratados" />
+                            <p:dataExporter type="xls" target="tblNaoTratados" fileName="tblNaoTratados" />
                         </h:commandLink>
 
                 </p:toolbarGroup>

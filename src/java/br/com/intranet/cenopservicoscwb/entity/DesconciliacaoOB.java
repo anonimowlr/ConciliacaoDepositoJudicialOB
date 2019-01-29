@@ -7,6 +7,7 @@ package br.com.intranet.cenopservicoscwb.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,11 +16,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -160,6 +163,8 @@ public class DesconciliacaoOB implements Serializable {
     @Size(max = 100)
     @Column(name = "BANCO_DEPOSITARIO")
     private String bancoDepositario;
+    @OneToMany(mappedBy = "idDesconciliacao")
+    private List<SolicitacaoLevantamento> solicitacaoLevantamentoList;
 
     public DesconciliacaoOB() {
     }
@@ -430,6 +435,15 @@ public class DesconciliacaoOB implements Serializable {
 
     public void setBancoDepositario(String bancoDepositario) {
         this.bancoDepositario = bancoDepositario;
+    }
+
+    @XmlTransient
+    public List<SolicitacaoLevantamento> getSolicitacaoLevantamentoList() {
+        return solicitacaoLevantamentoList;
+    }
+
+    public void setSolicitacaoLevantamentoList(List<SolicitacaoLevantamento> solicitacaoLevantamentoList) {
+        this.solicitacaoLevantamentoList = solicitacaoLevantamentoList;
     }
 
     @Override

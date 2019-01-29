@@ -29,7 +29,7 @@
 
 
                     <p:commandButton  value="Listar tratamentos efetuados hoje"  actionListener="#{historicoDesconciliacaoBean.buscar()}"  update=":frmPesquisaHistorico" rendered="#{historicoDesconciliacaoBean.isBuscar()==false}" ></p:commandButton>
-                    <p:commandButton  value="Atualizar página"  actionListener="#{historicoDesconciliacaoBean.buscar()}"  update=":frmPesquisaHistorico" ></p:commandButton>
+                    <p:commandButton  icon="ui-icon-arrowrefresh-1-e" value="Atualizar página"  actionListener="#{historicoDesconciliacaoBean.buscar()}"  update=":frmPesquisaHistorico" ></p:commandButton>
                 </p:toolbarGroup>
 
             </p:toolbar>

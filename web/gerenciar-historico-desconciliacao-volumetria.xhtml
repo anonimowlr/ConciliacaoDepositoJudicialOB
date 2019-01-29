@@ -30,6 +30,8 @@
 
                     <p:commandButton  value="Listar tratamentos efetuados"  actionListener="#{historicoDesconciliacaoVolumetriaBean.buscar()}"  update=":frmPesquisaHistorico" rendered="#{historicoDesconciliacaoVolumetriaBean.isBuscar()==false}" ></p:commandButton>
                     <p:commandButton  value="Atualizar página"  actionListener="#{historicoDesconciliacaoVolumetriaBean.buscar()}"  update=":frmPesquisaHistorico" ></p:commandButton>
+                
+                
                 </p:toolbarGroup>
 
             </p:toolbar>
@@ -56,7 +58,7 @@
                         <h:commandLink>
                             <h:graphicImage  width="50px" library="imagens" name="excel.png" title="Exportar para Excel" ></h:graphicImage>
 
-                            <p:dataExporter type="csv" target="tblVolumetria" fileName="tblHistorico" />
+                            <p:dataExporter type="xls" target="tblVolumetria" fileName="tblHistorico" />
                         </h:commandLink>
 
                 </p:toolbarGroup>

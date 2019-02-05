@@ -10,7 +10,6 @@ import br.com.intranet.cenopservicoscwb.bean.util.Utils;
 import br.com.intranet.cenopservicoscwb.connectionfactory.ConnectionFactory;
 import br.com.intranet.cenopservicoscwb.entity.DesconciliacaoOB;
 import br.com.intranet.cenopservicoscwb.entity.Funcionario;
-import br.com.intranet.cenopservicoscwb.jpa.EntityManagerUtil;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -22,7 +21,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.persistence.EntityManager;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -55,7 +53,7 @@ public class DesconciliacaoTotalDAO implements CrudDAO<DesconciliacaoOB> {
                 } catch (Exception ex) {
                     throw new ErroSistema("Erro ao tentar verificar data atual", ex);
                 }
-                if (entidade.getDiasDesconciliado() <= 10) {
+                if (entidade.getDiasDesconciliado() <= 30) {
                     stmt.setString(16, "SIM");
                 } else {
                     stmt.setString(16, "NAO");
@@ -71,7 +69,7 @@ public class DesconciliacaoTotalDAO implements CrudDAO<DesconciliacaoOB> {
                 stmt = con.prepareStatement(sql);
                 stmt.setInt(15, entidade.getCodigoSituacao());
                 stmt.setInt(16, entidade.getCodigoTratamento());
-                if (entidade.getDiasDesconciliado() <= 10) {
+                if (entidade.getDiasDesconciliado() <= 30) {
                     stmt.setString(17, "SIM");
                 } else {
                     stmt.setString(17, "NAO");
@@ -160,7 +158,7 @@ public class DesconciliacaoTotalDAO implements CrudDAO<DesconciliacaoOB> {
             stmt.setDouble(7, entidade.getValorDesconciliacao());
 
             stmt.setDate(8, (Date) entidade.getDataDesconciliacao());
-            if (entidade.getDiasDesconciliado() <= 10) {
+            if (entidade.getDiasDesconciliado() <= 30) {
                 stmt.setString(9, "SIM");
             } else {
                 stmt.setString(9, "NAO");
@@ -304,83 +302,68 @@ public class DesconciliacaoTotalDAO implements CrudDAO<DesconciliacaoOB> {
 
     @Override
     public List<DesconciliacaoOB> buscar() throws ErroSistema {
-       EntityManager em = EntityManagerUtil.getEntityManager();
+
+         List<DesconciliacaoOB> desconciliacoes;
         
-        List<DesconciliacaoOB>  listaCadastro = new ArrayList<>();
         
-        try{
-          listaCadastro = em.createQuery("FROM DesconciliacaoOB cadastro").getResultList();
-            
-            
-            
-            
-            
-        }catch(Exception ex){
-            System.err.println(ex);
-        }
-       
-        return  listaCadastro;
+        
+        
+        
+        try {
+            Connection con = ConnectionFactory.conectar("rejud_ob");
+            String sql = "SELECT * FROM tb_desconciliacao_ob_paj";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            desconciliacoes = new ArrayList<>();
+
+            while (rs.next()) {
+
+                DesconciliacaoOB desconciliacao = new DesconciliacaoOB();
+
+                desconciliacao.setCodigoDesconciliacao(rs.getInt("CODIGO_DESCONCILIACAO"));
+                desconciliacao.setNpj(rs.getString("NPJ"));
+                desconciliacao.setVariacaoNpj(rs.getInt("VARIACAO_NPJ"));
+                desconciliacao.setContaControle(rs.getString("CONTA_CONTROLE"));
+                desconciliacao.setContaDepositaria(rs.getString("CONTA_DEPOSITARIA"));
+                desconciliacao.setSaldoContaControle(rs.getDouble("SALDO_CONTA_CONTROLE"));
+                desconciliacao.setSaldoDeposito(rs.getDouble("SALDO_DEPOSITO"));
+                desconciliacao.setValorDesconciliacao(rs.getDouble("VALOR_DESCONCILIACAO"));
+                desconciliacao.setSituacao(rs.getString("SITUACAO"));
+                desconciliacao.setDataSituacao(rs.getDate("DATA_SITUACAO"));
+                desconciliacao.setFuncionarioResponsavelSituacao(rs.getString("FUNCIONARIO_RESPONSAVEL_SITUACAO"));
+                desconciliacao.setFuncionarioAtual(rs.getString("FUNCIONARIO_ATUAL"));
+                desconciliacao.setNomeTratamento(rs.getString("NOME_TRATAMENTO"));
+                desconciliacao.setAvocado(rs.getString("AVOCADO"));
+                desconciliacao.setDataAvocacao(rs.getDate("DATA_AVOCACAO"));
+                desconciliacao.setDataDesconciliacao(rs.getDate("DATA_DESCONCILIACAO"));
+                desconciliacao.setDiasDesconciliado(rs.getInt("DIAS_DESCONCILIADO"));
+                desconciliacao.setDataEntradaBd(rs.getDate("DATA_ENTRADA_BD"));
+                desconciliacao.setObsLivre(rs.getString("OBS_LIVRE"));
+                desconciliacao.setAutor(rs.getString("AUTOR"));
+                desconciliacao.setMateria(rs.getString("MATERIA"));
+                desconciliacao.setAssunto(rs.getString("ASSUNTO"));
+                desconciliacao.setDataPrimeiroTratamento(rs.getDate("DATA_PRIMEIRO_TRATAMENTO"));
+                desconciliacao.setDiasDesconciliado(rs.getInt("DIAS_DESCONCILIADO"));
+                desconciliacao.setTratadoPrazo(rs.getString("TRATADO_PRAZO"));
+                desconciliacao.setDataRetornoAgencia(rs.getDate("DATA_RETORNO_AGENCIA"));
+                desconciliacao.setBancoDepositario(rs.getString("BANCO_DEPOSITARIO"));
+                
+                desconciliacoes.add(desconciliacao);
+
+            }
+
+            ConnectionFactory.fecharConexao();
+
+            return desconciliacoes;
+
+        } catch (SQLException ex) {
+            throw new ErroSistema("Erro ao listar dados", ex);
            
+        } finally {
+            ConnectionFactory.fecharConexao();
+        }
 
-        
-        
-        
-        
-        
-        
-//        try {
-//            Connection con = ConnectionFactory.conectar("rejud_ob");
-//            String sql = "SELECT * FROM tb_desconciliacao_ob_paj";
-//            PreparedStatement stmt = con.prepareStatement(sql);
-//            ResultSet rs = stmt.executeQuery();
-//            List<DesconciliacaoOB> desconciliacoes = new ArrayList<>();
-//
-//            while (rs.next()) {
-//
-//                DesconciliacaoOB desconciliacao = new DesconciliacaoOB();
-//
-//                desconciliacao.setCodigoDesconciliacao(rs.getInt("CODIGO_DESCONCILIACAO"));
-//                desconciliacao.setNpj(rs.getString("NPJ"));
-//                desconciliacao.setVariacaoNpj(rs.getInt("VARIACAO_NPJ"));
-//                desconciliacao.setContaControle(rs.getString("CONTA_CONTROLE"));
-//                desconciliacao.setContaDepositaria(rs.getString("CONTA_DEPOSITARIA"));
-//                desconciliacao.setSaldoContaControle(rs.getDouble("SALDO_CONTA_CONTROLE"));
-//                desconciliacao.setSaldoDeposito(rs.getDouble("SALDO_DEPOSITO"));
-//                desconciliacao.setValorDesconciliacao(rs.getDouble("VALOR_DESCONCILIACAO"));
-//                desconciliacao.setSituacao(rs.getString("SITUACAO"));
-//                desconciliacao.setDataSituacao(rs.getDate("DATA_SITUACAO"));
-//                desconciliacao.setFuncionarioResponsavelSituacao(rs.getString("FUNCIONARIO_RESPONSAVEL_SITUACAO"));
-//                desconciliacao.setFuncionarioAtual(rs.getString("FUNCIONARIO_ATUAL"));
-//                desconciliacao.setNomeTratamento(rs.getString("NOME_TRATAMENTO"));
-//                desconciliacao.setAvocado(rs.getString("AVOCADO"));
-//                desconciliacao.setDataAvocacao(rs.getDate("DATA_AVOCACAO"));
-//                desconciliacao.setDataDesconciliacao(rs.getDate("DATA_DESCONCILIACAO"));
-//                desconciliacao.setDiasDesconciliado(rs.getInt("DIAS_DESCONCILIADO"));
-//                desconciliacao.setDataEntradaBd(rs.getDate("DATA_ENTRADA_BD"));
-//                desconciliacao.setObsLivre(rs.getString("OBS_LIVRE"));
-//                desconciliacao.setAutor(rs.getString("AUTOR"));
-//                desconciliacao.setMateria(rs.getString("MATERIA"));
-//                desconciliacao.setAssunto(rs.getString("ASSUNTO"));
-//                desconciliacao.setDataPrimeiroTratamento(rs.getDate("DATA_PRIMEIRO_TRATAMENTO"));
-//                desconciliacao.setDiasDesconciliado(rs.getInt("DIAS_DESCONCILIADO"));
-//                desconciliacao.setTratadoPrazo(rs.getString("TRATADO_PRAZO"));
-//                desconciliacao.setDataRetornoAgencia(rs.getDate("DATA_RETORNO_AGENCIA"));
-//                desconciliacao.setBancoDepositario(rs.getString("BANCO_DEPOSITARIO"));
-//                
-//                desconciliacoes.add(desconciliacao);
-//
-//            }
-//
-//            ConnectionFactory.fecharConexao();
-
-           // return null;
-
-//        } catch (SQLException ex) {
-//            throw new ErroSistema("Erro ao listar dados", ex);
-//        } finally {
-//            ConnectionFactory.fecharConexao();
-//        }
-
+       
     }
 
     private void salvarHistorico(DesconciliacaoOB entidade) throws ErroSistema {
@@ -633,7 +616,7 @@ public class DesconciliacaoTotalDAO implements CrudDAO<DesconciliacaoOB> {
 
     @Override
     public Boolean avaliarParaSalvar(DesconciliacaoOB entidade) {
-        GrupoStatusDAO statusDAO = new GrupoStatusDAO();
+      GrupoStatusDAO statusDAO = new GrupoStatusDAO();
       GrupoTratamentoDAO tratamentoDAO = new GrupoTratamentoDAO();
         
         String status = null;

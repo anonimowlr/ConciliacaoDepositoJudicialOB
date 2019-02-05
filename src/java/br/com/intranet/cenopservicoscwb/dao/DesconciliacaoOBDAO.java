@@ -57,7 +57,7 @@ public class DesconciliacaoOBDAO implements CrudDAO<DesconciliacaoOB> {
                 } catch (Exception ex) {
                     throw new ErroSistema("Erro ao tentar verificar data atual", ex);
                 }
-                if (entidade.getDiasDesconciliado() <= 10) {
+                if (entidade.getDiasDesconciliado() <= 30) {
                     stmt.setString(16, "SIM");
                 } else {
                     stmt.setString(16, "NAO");
@@ -73,7 +73,7 @@ public class DesconciliacaoOBDAO implements CrudDAO<DesconciliacaoOB> {
                 stmt = con.prepareStatement(sql);
                 stmt.setInt(15, entidade.getCodigoSituacao());
                 stmt.setInt(16, entidade.getCodigoTratamento());
-                if (entidade.getDiasDesconciliado() <= 10) {
+                if (entidade.getDiasDesconciliado() <= 30) {
                     stmt.setString(17, "SIM");
                 } else {
                     stmt.setString(17, "NAO");
@@ -158,7 +158,7 @@ public class DesconciliacaoOBDAO implements CrudDAO<DesconciliacaoOB> {
             stmt.setDouble(7, entidade.getValorDesconciliacao());
 
             stmt.setDate(8, (Date) entidade.getDataDesconciliacao());
-            if (entidade.getDiasDesconciliado() <= 10) {
+            if (entidade.getDiasDesconciliado() <= 30) {
                 stmt.setString(9, "SIM");
             } else {
                 stmt.setString(9, "NAO");
@@ -332,7 +332,7 @@ public class DesconciliacaoOBDAO implements CrudDAO<DesconciliacaoOB> {
          DesconciliacaoOB desconciliacao = null;
         try {
             Connection con = ConnectionFactory.conectar("rejud_ob");
-            String sql = "SELECT * FROM rejud_ob.tb_desconciliacao_ob_paj where  (AVOCADO = '' OR AVOCADO IS NULL OR( AVOCADO = 'SIM' AND FUNCIONARIO_ATUAL =  '" + usuario.getChave() + "' ) ) AND (SITUACAO = '' OR SITUACAO IS NULL OR SITUACAO ='INEDITO TRATADO' )  ORDER BY ABS(VALOR_DESCONCILIACAO)DESC LIMIT 1";
+            String sql = "SELECT * FROM rejud_ob.tb_desconciliacao_ob_paj where  (AVOCADO = '' OR AVOCADO IS NULL OR( AVOCADO = 'SIM' AND FUNCIONARIO_ATUAL =  '" + usuario.getChave() + "' ) ) AND (SITUACAO = '' OR SITUACAO IS NULL OR SITUACAO ='INEDITO TRATADO' )  ORDER BY NPJ LIMIT 1";
             PreparedStatement stmt = con.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             List<DesconciliacaoOB> desconciliacoes = new ArrayList<>();
@@ -461,9 +461,9 @@ public class DesconciliacaoOBDAO implements CrudDAO<DesconciliacaoOB> {
             PreparedStatement stmt = null;
             Connection con = ConnectionFactory.conectar("rejud_ob");
 
-            sql = "UPDATE tb_desconciliacao_ob_paj set AVOCADO=?, DATA_AVOCACAO=?, FUNCIONARIO_ATUAL=? where CODIGO_DESCONCILIACAO=?";
+            sql = "UPDATE tb_desconciliacao_ob_paj set AVOCADO=?, DATA_AVOCACAO=?, FUNCIONARIO_ATUAL=? where NPJ=?";
             stmt = con.prepareStatement(sql);
-            stmt.setInt(4, entidade.getCodigoDesconciliacao());
+            stmt.setString(4, entidade.getNpj());
 
             stmt.setString(1, "SIM");
             try {
@@ -718,7 +718,7 @@ public class DesconciliacaoOBDAO implements CrudDAO<DesconciliacaoOB> {
              stmt.execute();
              
              
-             sql = "UPDATE rejud_ob.tb_desconciliacao_ob_paj  as t1 set TRATADO_PRAZO = 'SIM' where (DIAS_DESCONCILIADO  <=10 and DIAS_DESCONCILIADO>=0 OR DIAS_DESCONCILIADO IS NULL)  AND (TRATADO_PRAZO IS NULL OR TRATADO_PRAZO = 'NAO') AND DATA_PRIMEIRO_TRATAMENTO IS NOT NULL AND SITUACAO = 'REGULARIZADO' AND NOME_TRATAMENTO = 'ANOTAÇÃO AUTOMÁTICA'";
+             sql = "UPDATE rejud_ob.tb_desconciliacao_ob_paj  as t1 set TRATADO_PRAZO = 'SIM' where (DIAS_DESCONCILIADO  <=30 and DIAS_DESCONCILIADO>=0 OR DIAS_DESCONCILIADO IS NULL)  AND (TRATADO_PRAZO IS NULL OR TRATADO_PRAZO = 'NAO') AND DATA_PRIMEIRO_TRATAMENTO IS NOT NULL AND SITUACAO = 'REGULARIZADO' AND NOME_TRATAMENTO = 'ANOTAÇÃO AUTOMÁTICA'";
              stmt = con.prepareStatement(sql);
              stmt.execute();
              

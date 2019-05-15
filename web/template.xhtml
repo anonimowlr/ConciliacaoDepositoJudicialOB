@@ -60,7 +60,11 @@
                 <p:submenu label="Desconciliação Outros Bancos" icon="ui-icon-document">
 
 
+                        <p:menuitem value="Tratar Conexão" url="gerenciar-desconciliacao-conexao.jsf"></p:menuitem> 
                         <p:menuitem value="Tratar novas desconciliações" url="gerenciar-desconciliacoes.jsf"></p:menuitem> 
+                        <p:menuitem value="Tratar favorável" url="gerenciar-favoravel.jsf"></p:menuitem> 
+                        <p:menuitem value="Tratar desfavorável" url="gerenciar-desconciliacao-desfavoravel.jsf"></p:menuitem> 
+                        <p:menuitem value="Pesquisar base" url="gerenciar-desconciliacaoTotal.jsf"></p:menuitem> 
                         
                        
                       
@@ -89,9 +93,8 @@
                     <p:menuitem value="Gerar orçado/realizado" url="gerenciar-orcado-realizado.jsf"></p:menuitem>
                     <p:menuitem value="Consultar Conexão" url="gerenciar-conexao.jsf"></p:menuitem>
                     <p:submenu label="Relatórios Spotfire" icon="ui-icon-document" rendered="#{funcionarioBean.isCargoGerencial()}">
-                        <p:menuitem value="Relatórios Histórico Funcionário" url="" target="_blank" ></p:menuitem>
-                        <p:menuitem value="Base Desconciliação Dia"  url=""  target="_blank" ></p:menuitem>
-                        <p:menuitem value="Resumo desconciliação atual"  url=""  target="_blank" ></p:menuitem>
+                        <p:menuitem value="Tratamento hoje" url="https://bam.bb.com.br/spotfire/wp/OpenAnalysis?file=/[P%C3%BAblica]/VISIN/UOP/Cenop/Cenop%20Servi%C3%A7os%20Curitiba/REJUD_OB/FATO.rejud_ob.view_tb_historico_hoje_tratamento_desconciliacao_ob/AN_rejud_ob.view_tb_historico_hoje_tratamento_desconciliacao_ob" target="_blank" ></p:menuitem>
+                        <p:menuitem value="Tratamento acumulado" url="https://bam.bb.com.br/spotfire/wp/OpenAnalysis?file=/[P%C3%BAblica]/VISIN/UOP/Cenop/Cenop%20Servi%C3%A7os%20Curitiba/REJUD_OB/FATO.rejud_ob.view_tb_historico_total_tratamento_ob/AN_rejud_ob_view_tb_historico_total_tratamento_ob" target="_blank" ></p:menuitem>
                     </p:submenu>   
 
                 </p:submenu>

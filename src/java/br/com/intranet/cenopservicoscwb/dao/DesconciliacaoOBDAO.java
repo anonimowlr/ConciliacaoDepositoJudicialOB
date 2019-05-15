@@ -108,6 +108,7 @@ public class DesconciliacaoOBDAO implements CrudDAO<DesconciliacaoOB> {
             stmt.setString(14, entidade.getObsLivre());
 
             stmt.executeUpdate();
+            
             salvarHistorico(entidade);
             gerarOrcado(entidade);
 
@@ -332,7 +333,7 @@ public class DesconciliacaoOBDAO implements CrudDAO<DesconciliacaoOB> {
          DesconciliacaoOB desconciliacao = null;
         try {
             Connection con = ConnectionFactory.conectar("rejud_ob");
-            String sql = "SELECT * FROM rejud_ob.tb_desconciliacao_ob_paj where  (AVOCADO = '' OR AVOCADO IS NULL OR( AVOCADO = 'SIM' AND FUNCIONARIO_ATUAL =  '" + usuario.getChave() + "' ) ) AND (SITUACAO = '' OR SITUACAO IS NULL OR SITUACAO ='INEDITO TRATADO' )  ORDER BY NPJ LIMIT 1";
+            String sql = "SELECT * FROM rejud_ob.tb_desconciliacao_ob_paj where  (AVOCADO = '' OR AVOCADO IS NULL OR( AVOCADO = 'SIM' AND FUNCIONARIO_ATUAL =  '" + usuario.getChave() + "' ) ) AND (SITUACAO = '' OR SITUACAO IS NULL OR SITUACAO ='INEDITO TRATADO' )  ORDER BY ABS(VALOR_DESCONCILIACAO)DESC LIMIT 1";
             PreparedStatement stmt = con.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             List<DesconciliacaoOB> desconciliacoes = new ArrayList<>();
@@ -368,6 +369,7 @@ public class DesconciliacaoOBDAO implements CrudDAO<DesconciliacaoOB> {
                 desconciliacao.setTratadoPrazo(rs.getString("TRATADO_PRAZO"));
                 desconciliacao.setDataRetornoAgencia(rs.getDate("DATA_RETORNO_AGENCIA"));
                 desconciliacao.setBancoDepositario(rs.getString("BANCO_DEPOSITARIO"));
+                desconciliacao.setIdDesconciliacaoDiris(rs.getString("ID_DESCONCILIACAO_DIRIS"));
                 
                 desconciliacoes.add(desconciliacao);
                 
@@ -375,7 +377,9 @@ public class DesconciliacaoOBDAO implements CrudDAO<DesconciliacaoOB> {
             }
 
             
-            avocar(desconciliacao);
+           if(desconciliacao != null){
+              avocar(desconciliacao);  
+           } 
             return desconciliacoes;
 
         } catch (SQLException ex) {

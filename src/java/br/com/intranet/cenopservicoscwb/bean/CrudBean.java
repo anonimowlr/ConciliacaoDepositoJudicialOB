@@ -224,7 +224,7 @@ public abstract class CrudBean<E, D extends CrudDAO> {
     
      public void buscarPorParametro(E entidade) {
 
-        
+         
 
         try {
             entidades = getDao().buscarPorParametro(entidade);

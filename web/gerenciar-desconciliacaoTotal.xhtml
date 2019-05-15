@@ -189,6 +189,10 @@
 
 
 
+                <p:column   headerText="Id" sortBy="#{d.idDesconciliacaoDiris}" filterBy="#{d.idDesconciliacaoDiris}" filterMatchMode="contains">
+                    <h:outputText  value="#{d.idDesconciliacaoDiris}"></h:outputText>
+
+                </p:column>
                 <p:column   headerText="Npj" sortBy="#{d.npj}" filterBy="#{d.npj}" filterMatchMode="contains">
                     <h:outputText  value="#{d.npj}"></h:outputText>
 
@@ -249,9 +253,9 @@
                 
                 
                 <p:column headerText="Data entrada banco de dados" sortBy="#{d.dataEntradaBd}" filterBy="#{d.dataEntradaBd}" filterMatchMode="contains">
-                    <h:outputText  value="#{d.dataEntradaBd}">
+                    <p:outputLabel  value="#{d.dataEntradaBd}">
                         <f:convertDateTime pattern="dd/MM/yyyy" />
-                    </h:outputText>
+                    </p:outputLabel>
 
                 </p:column>
                 

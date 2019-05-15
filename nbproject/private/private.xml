@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/f5078775/Documents/NetBeansProjects/ConciliacaoDepositoJudicialOB/src/java/br/com/intranet/cenopservicoscwb/entity/HistoricoDesconciliacao.java</file>
+            <file>file:/C:/Users/f5078775/Documents/NetBeansProjects/ConciliacaoDepositoJudicialOB/src/java/br/com/intranet/cenopservicoscwb/dao/DesconciliacaoOBDAO.java</file>
+            <file>file:/C:/Users/f5078775/Documents/NetBeansProjects/ConciliacaoDepositoJudicialOB/web/gerenciar-desconciliacoes.xhtml</file>
+            <file>file:/C:/Users/f5078775/Documents/NetBeansProjects/ConciliacaoDepositoJudicialOB/web/template.xhtml</file>
+            <file>file:/C:/Users/f5078775/Documents/NetBeansProjects/ConciliacaoDepositoJudicialOB/src/java/br/com/intranet/cenopservicoscwb/bean/FuncionarioBean.java</file>
+            <file>file:/C:/Users/f5078775/Documents/NetBeansProjects/ConciliacaoDepositoJudicialOB/web/gerenciar-conexao.xhtml</file>
+            <file>file:/C:/Users/f5078775/Documents/NetBeansProjects/ConciliacaoDepositoJudicialOB/web/gerenciar-desconciliacao-conexao.xhtml</file>
+            <file>file:/C:/Users/f5078775/Documents/NetBeansProjects/ConciliacaoDepositoJudicialOB/web/gerenciar-desconciliacaoTotal.xhtml</file>
+            <file>file:/C:/Users/f5078775/Documents/NetBeansProjects/ConciliacaoDepositoJudicialOB/src/java/br/com/intranet/cenopservicoscwb/entity/Funcionario.java</file>
+            <file>file:/C:/Users/f5078775/Documents/NetBeansProjects/ConciliacaoDepositoJudicialOB/src/java/br/com/intranet/cenopservicoscwb/dao/FuncionarioDAO.java</file>
+            <file>file:/C:/Users/f5078775/Documents/NetBeansProjects/ConciliacaoDepositoJudicialOB/src/java/br/com/intranet/cenopservicoscwb/entity/OrcadoRealizado.java</file>
+            <file>file:/C:/Users/f5078775/Documents/NetBeansProjects/ConciliacaoDepositoJudicialOB/src/java/br/com/intranet/cenopservicoscwb/entity/DesconciliacaoOB.java</file>
+            <file>file:/C:/Users/f5078775/Documents/NetBeansProjects/ConciliacaoDepositoJudicialOB/nbproject/build-impl.xml</file>
+            <file>file:/C:/Users/f5078775/Documents/NetBeansProjects/ConciliacaoDepositoJudicialOB/src/java/br/com/intranet/cenopservicoscwb/entity/ProtocoloGsv.java</file>
+            <file>file:/C:/Users/f5078775/Documents/NetBeansProjects/ConciliacaoDepositoJudicialOB/src/java/br/com/intranet/cenopservicoscwb/connectionfactory/ConnectionFactory.java</file>
+            <file>file:/C:/Users/f5078775/Documents/NetBeansProjects/ConciliacaoDepositoJudicialOB/src/java/br/com/intranet/cenopservicoscwb/entity/GrupoTratamento.java</file>
+            <file>file:/C:/Users/f5078775/Documents/NetBeansProjects/ConciliacaoDepositoJudicialOB/src/java/br/com/intranet/cenopservicoscwb/dao/DesconciliacaoTotalDAO.java</file>
+            <file>file:/C:/Users/f5078775/Documents/NetBeansProjects/ConciliacaoDepositoJudicialOB/src/java/br/com/intranet/cenopservicoscwb/bean/CrudBean.java</file>
+        </group>
+    </open-files>
+</project-private>

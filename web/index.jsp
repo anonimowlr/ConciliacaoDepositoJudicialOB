@@ -7,8 +7,8 @@
         if (request.getParameter("ibm-nativeid") == null) {
             precisaAutenticar = true;
         } else {
-            //session.setAttribute("usuarioLogado", new FuncionarioDAO().getFuncionario(request.getParameter("cd-idgl-usu")));
-            session.setAttribute("usuarioLogado", new FuncionarioDAO().getFuncionario(request.getParameter("ibm-nativeid"),request.getParameter("cd-eqp")));
+            session.setAttribute("usuarioLogado", new FuncionarioDAO().getFuncionario(request.getParameter("ibm-nativeid"),request.getParameter("cd-eqp"),request.getParameter("nm-idgl")));
+            //session.setAttribute("usuarioLogado", new FuncionarioDAO().getFuncionario("F45335","283268","JONAS USUSARIO TESTE"));
             session.setAttribute("funciAtividade", new AtividadeFunciDAO().getAtividadeFunci(request.getParameter("ibm-nativeid")));
                 
             if (session.getAttribute("usuarioLogado") != null) {
@@ -17,7 +17,7 @@
                         + ("http".equals(request.getScheme()) && request.getServerPort() == 80 || "https".equals(request.getScheme()) && request.getServerPort() == 443 ? "" : ":" + request.getServerPort())
                         + request.getRequestURI()
                         + (request.getQueryString() != null ? "?" + request.getQueryString() : "");
-                response.sendRedirect("http://cenopservicoscwb.intranet.bb.com.br/_tools/loginPortal.php?urlRetorno=" + uri + "home.jsf");
+                response.sendRedirect("https://cenopservicoscwb.intranet.bb.com.br/_tools/loginPortal.php?urlRetorno=" + uri + "home.jsf");
 
             }
         }
@@ -27,7 +27,7 @@
                 + ("http".equals(request.getScheme()) && request.getServerPort() == 80 || "https".equals(request.getScheme()) && request.getServerPort() == 443 ? "" : ":" + request.getServerPort())
                 + request.getRequestURI()
                 + (request.getQueryString() != null ? "?" + request.getQueryString() : "");
-        response.sendRedirect("http://cenopservicoscwb.intranet.bb.com.br/_tools/loginPortal.php?urlRetorno=" + uri + "home.jsf");
+        response.sendRedirect("https://cenopservicoscwb.intranet.bb.com.br/_tools/loginPortal.php?urlRetorno=" + uri + "home.jsf");
 
     }
 
@@ -37,7 +37,7 @@
                 + ("http".equals(request.getScheme()) && request.getServerPort() == 80 || "https".equals(request.getScheme()) && request.getServerPort() == 443 ? "" : ":" + request.getServerPort())
                 + request.getRequestURI()
                 + (request.getQueryString() != null ? "?" + request.getQueryString() : "");
-        response.sendRedirect("http://cenopservicoscwb.intranet.bb.com.br/_tools/loginPortal.php?urlRetorno=" + uri);
+        response.sendRedirect("https://cenopservicoscwb.intranet.bb.com.br/_tools/loginPortal.php?urlRetorno=" + uri);
     }
 
 

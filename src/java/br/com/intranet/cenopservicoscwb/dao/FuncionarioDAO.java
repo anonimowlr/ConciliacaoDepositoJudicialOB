@@ -17,7 +17,7 @@ public class FuncionarioDAO implements  CrudDAO<Funcionario>{
     
     
 
-   public Funcionario getFuncionario(String chave, String uor) throws ClassNotFoundException, SQLException, ErroSistema {
+   public Funcionario getFuncionario(String chave, String uor, String nomeFuncionario) throws ClassNotFoundException, SQLException, ErroSistema {
        
         
         
@@ -33,20 +33,26 @@ public class FuncionarioDAO implements  CrudDAO<Funcionario>{
 
         ResultSet tabela = busca.executeQuery(sql);
 
-              Funcionario funci = new Funcionario();
+               Funcionario funci = new Funcionario();
 
         try {
             if (tabela.next()) {
-                funci.setChave(tabela.getString("matriculaF"));
-                funci.setNome(tabela.getString("nome"));
+                funci.setChave(chave);
+                funci.setNome(nomeFuncionario.toUpperCase());
                 funci.setNomeGuerra(tabela.getString("nome_guerra"));
-                funci.setFuncao(tabela.getInt("funcao"));
-                funci.setNomeFuncao(tabela.getString("nfuncao"));
+                funci.setFuncao(Integer.parseInt(tabela.getString("funcao")));
+                funci.setNomeFuncao(tabela.getString("nFuncao"));
                 funci.setUORHabitual(Integer.parseInt(uor));
                 funci.setUORPosicao(Integer.parseInt(uor));
                 funci.setGerente(tabela.getString("gerente"));
                 funci.setSecao(tabela.getString("secao"));
                 funci.setQuadro(tabela.getString("Quadro"));
+            } else{
+               funci.setChave(chave);
+               funci.setNome(nomeFuncionario.toUpperCase());
+               funci.setUORHabitual(Integer.parseInt(uor));
+               funci.setUORPosicao(Integer.parseInt(uor));
+                
             }
             tabela.close();
         } catch (SQLException e) {
@@ -59,7 +65,7 @@ public class FuncionarioDAO implements  CrudDAO<Funcionario>{
         
               
     
-//
+
 //    funci.setChave("F5078775");
 //    funci.setNome("JOCIMAR WALTER");
 //    funci.setFuncao(4750);

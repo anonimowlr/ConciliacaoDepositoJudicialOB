@@ -7,7 +7,6 @@ package br.com.intranet.cenopservicoscwb.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,17 +15,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author f5078775
+ * @author F5078775
  */
 @Entity
 @Table(name = "tb_desconciliacao_ob_paj")
@@ -65,7 +62,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "DesconciliacaoOB.findByDataRetornoAgencia", query = "SELECT d FROM DesconciliacaoOB d WHERE d.dataRetornoAgencia = :dataRetornoAgencia")
     , @NamedQuery(name = "DesconciliacaoOB.findByDataRotinaSaldoDjo", query = "SELECT d FROM DesconciliacaoOB d WHERE d.dataRotinaSaldoDjo = :dataRotinaSaldoDjo")
     , @NamedQuery(name = "DesconciliacaoOB.findByPrefixoOrigem", query = "SELECT d FROM DesconciliacaoOB d WHERE d.prefixoOrigem = :prefixoOrigem")
-    , @NamedQuery(name = "DesconciliacaoOB.findByBancoDepositario", query = "SELECT d FROM DesconciliacaoOB d WHERE d.bancoDepositario = :bancoDepositario")})
+    , @NamedQuery(name = "DesconciliacaoOB.findByBancoDepositario", query = "SELECT d FROM DesconciliacaoOB d WHERE d.bancoDepositario = :bancoDepositario")
+    , @NamedQuery(name = "DesconciliacaoOB.findByIdDesconciliacaoDiris", query = "SELECT d FROM DesconciliacaoOB d WHERE d.idDesconciliacaoDiris = :idDesconciliacaoDiris")})
 public class DesconciliacaoOB implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -163,8 +161,9 @@ public class DesconciliacaoOB implements Serializable {
     @Size(max = 100)
     @Column(name = "BANCO_DEPOSITARIO")
     private String bancoDepositario;
-    @OneToMany(mappedBy = "idDesconciliacao")
-    private List<SolicitacaoLevantamento> solicitacaoLevantamentoList;
+    @Size(max = 100)
+    @Column(name = "ID_DESCONCILIACAO_DIRIS")
+    private String idDesconciliacaoDiris;
 
     public DesconciliacaoOB() {
     }
@@ -437,13 +436,12 @@ public class DesconciliacaoOB implements Serializable {
         this.bancoDepositario = bancoDepositario;
     }
 
-    @XmlTransient
-    public List<SolicitacaoLevantamento> getSolicitacaoLevantamentoList() {
-        return solicitacaoLevantamentoList;
+    public String getIdDesconciliacaoDiris() {
+        return idDesconciliacaoDiris;
     }
 
-    public void setSolicitacaoLevantamentoList(List<SolicitacaoLevantamento> solicitacaoLevantamentoList) {
-        this.solicitacaoLevantamentoList = solicitacaoLevantamentoList;
+    public void setIdDesconciliacaoDiris(String idDesconciliacaoDiris) {
+        this.idDesconciliacaoDiris = idDesconciliacaoDiris;
     }
 
     @Override

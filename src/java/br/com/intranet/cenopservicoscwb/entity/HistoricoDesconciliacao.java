@@ -18,7 +18,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -74,15 +73,12 @@ public class HistoricoDesconciliacao implements Serializable {
     private Integer codigoHistorico;
     @Column(name = "CODIGO_DESCONCILIACAO")
     private Integer codigoDesconciliacao;
-    @Size(max = 45)
     @Column(name = "NPJ")
     private String npj;
     @Column(name = "VARIACAO_NPJ")
     private Integer variacaoNpj;
-    @Size(max = 45)
     @Column(name = "CONTA_CONTROLE")
     private String contaControle;
-    @Size(max = 45)
     @Column(name = "CONTA_DEPOSITARIA")
     private String contaDepositaria;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -92,22 +88,17 @@ public class HistoricoDesconciliacao implements Serializable {
     private Double saldoDeposito;
     @Column(name = "VALOR_DESCONCILIACAO")
     private Double valorDesconciliacao;
-    @Size(max = 200)
     @Column(name = "SITUACAO")
     private String situacao;
     @Column(name = "DATA_SITUACAO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataSituacao;
-    @Size(max = 45)
     @Column(name = "FUNCIONARIO_RESPONSAVEL_SITUACAO")
     private String funcionarioResponsavelSituacao;
-    @Size(max = 45)
     @Column(name = "FUNCIONARIO_ATUAL")
     private String funcionarioAtual;
-    @Size(max = 200)
     @Column(name = "NOME_TRATAMENTO")
     private String nomeTratamento;
-    @Size(max = 45)
     @Column(name = "AVOCADO")
     private String avocado;
     @Column(name = "DATA_AVOCACAO")
@@ -121,7 +112,6 @@ public class HistoricoDesconciliacao implements Serializable {
     @Column(name = "DATA_ENTRADA_BD")
     @Temporal(TemporalType.DATE)
     private Date dataEntradaBd;
-    @Size(max = 45)
     @Column(name = "MES_TRATAMENTO")
     private String mesTratamento;
     @Column(name = "PREFIXO")
@@ -142,7 +132,6 @@ public class HistoricoDesconciliacao implements Serializable {
     private Integer codigoTarefa;
     @Column(name = "CARGO_GERENCIAL")
     private Integer cargoGerencial;
-    @Size(max = 45)
     @Column(name = "TIPO_CHAVE")
     private String tipoChave;
     @Column(name = "QUANTIDADE_PROCESSO_CONCLUIDO")

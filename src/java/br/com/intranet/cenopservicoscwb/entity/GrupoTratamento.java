@@ -15,8 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -39,8 +37,6 @@ public class GrupoTratamento implements Serializable {
     @Column(name = "CODIGO_TRATAMENTO")
     private Integer codigoTratamento;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 200)
     @Column(name = "NOME_TRATAMENTO")
     private String nomeTratamento;
 

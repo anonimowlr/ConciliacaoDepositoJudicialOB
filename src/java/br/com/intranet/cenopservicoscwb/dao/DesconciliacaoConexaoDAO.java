@@ -136,36 +136,37 @@ public class DesconciliacaoConexaoDAO implements CrudDAO<DesconciliacaoOB> {
             PreparedStatement stmt = null;
             Connection con = ConnectionFactory.conectar("rejud_ob");
 
-            sql = "INSERT INTO tb_orcado_realizado_desconciliacao_ob_paj (NPJ,VARIACAO_NPJ,SITUACAO,AUTOR,CONTA_DEPOSITARIA,VALOR_DESCONCILIACAO,"
+            sql = "INSERT INTO tb_orcado_realizado_desconciliacao_ob_paj (CODIGO_DESCONCILIACAO,NPJ,VARIACAO_NPJ,SITUACAO,AUTOR,CONTA_DEPOSITARIA,VALOR_DESCONCILIACAO,"
                     + "DATA_DESCONCILIACAO,TRATADO_PRAZO,SALDO_DEPOSITO,DATA_SITUACAO,DATA_RETORNO_AGENCIA,"
                     + "FUNCIONARIO_RESPONSAVEL_SITUACAO,FUNCIONARIO_ATUAL,NOME_TRATAMENTO,"
-                    + "DIAS_DESCONCILIADO,DATA_ENTRADA_BD,DATA_PRIMEIRO_TRATAMENTO)"
-                    + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    + "DIAS_DESCONCILIADO,DATA_ENTRADA_BD,DATA_PRIMEIRO_TRATAMENTO,CODIGO_SITUACAO,CODIGO_TRATAMENTO)"
+                    + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             stmt = con.prepareStatement(sql);
 
-            stmt.setString(1, entidade.getNpj());
-            stmt.setInt(2, entidade.getVariacaoNpj());
-            stmt.setString(3, entidade.getSituacao());
-            stmt.setString(4, entidade.getAutor());
-            stmt.setString(5, entidade.getContaDepositaria());
-            stmt.setDouble(6, entidade.getValorDesconciliacao());
+            stmt.setInt(1, entidade.getCodigoDesconciliacao());
+            stmt.setString(2, entidade.getNpj());
+            stmt.setInt(3, entidade.getVariacaoNpj());
+            stmt.setString(4, entidade.getSituacao());
+            stmt.setString(5, entidade.getAutor());
+            stmt.setString(6, entidade.getContaDepositaria());
+            stmt.setDouble(7, entidade.getValorDesconciliacao());
 
-            stmt.setDate(7, (Date) entidade.getDataDesconciliacao());
+            stmt.setDate(8, (Date) entidade.getDataDesconciliacao());
             if (entidade.getDiasDesconciliado() <= 30) {
-                stmt.setString(8, "SIM");
+                stmt.setString(9, "SIM");
             } else {
-                stmt.setString(8, "NAO");
+                stmt.setString(9, "NAO");
             }
 
-            stmt.setDouble(9, entidade.getSaldoDeposito());
-            stmt.setDate(10, (Date) entidade.getDataSituacao());
-            stmt.setDate(11, (Date) entidade.getDataRetornoAgencia());
-            stmt.setString(12, usuario.getChave());
-            stmt.setString(13, entidade.getFuncionarioAtual());
-            stmt.setString(14, entidade.getNomeTratamento());
-            stmt.setInt(15, entidade.getDiasDesconciliado());
+            stmt.setDouble(10, entidade.getSaldoDeposito());
+            stmt.setDate(11, (Date) entidade.getDataSituacao());
+            stmt.setDate(12, (Date) entidade.getDataRetornoAgencia());
+            stmt.setString(13, usuario.getChave());
+            stmt.setString(14, entidade.getFuncionarioAtual());
+            stmt.setString(15, entidade.getNomeTratamento());
+            stmt.setInt(16, entidade.getDiasDesconciliado());
 
-            stmt.setDate(16, (Date) entidade.getDataEntradaBd());
+            stmt.setDate(17, (Date) entidade.getDataEntradaBd());
 
             
             
@@ -180,20 +181,21 @@ public class DesconciliacaoConexaoDAO implements CrudDAO<DesconciliacaoOB> {
             
             
             
-            stmt.setDate(17, (Date) entidade.getDataPrimeiroTratamento());
+            stmt.setDate(18, (Date) entidade.getDataPrimeiroTratamento());
+            stmt.setInt(19,  entidade.getCodigoSituacao());
+            stmt.setInt(20, entidade.getCodigoTratamento());
 
             stmt.executeUpdate();
 
         } catch (SQLException ex) {
 
-            throw new ErroSistema("Erro ao tentar salvar", ex);
+            throw new ErroSistema("Erro ao tentar salvar orcado", ex);
 
         } finally {
 
             ConnectionFactory.fecharConexao();
 
         }
-
     }
 
     public void inserirNovaDesconciliacao(DesconciliacaoOB entidade) throws ErroSistema {

@@ -18,8 +18,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -66,18 +64,14 @@ public class OrcadoRealizado implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "CODIGO_DESCONCILIACAO")
     private int codigoDesconciliacao;
-    @Size(max = 45)
     @Column(name = "NPJ")
     private String npj;
     @Column(name = "VARIACAO_NPJ")
     private Integer variacaoNpj;
-    @Size(max = 45)
     @Column(name = "CONTA_CONTROLE")
     private String contaControle;
-    @Size(max = 45)
     @Column(name = "CONTA_DEPOSITARIA")
     private String contaDepositaria;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -87,7 +81,6 @@ public class OrcadoRealizado implements Serializable {
     private Double saldoDeposito;
     @Column(name = "VALOR_DESCONCILIACAO")
     private Double valorDesconciliacao;
-    @Size(max = 200)
     @Column(name = "SITUACAO")
     private String situacao;
     @Column(name = "DATA_SITUACAO")
@@ -96,16 +89,12 @@ public class OrcadoRealizado implements Serializable {
     @Column(name = "DATA_RETORNO")
     @Temporal(TemporalType.DATE)
     private Date dataRetorno;
-    @Size(max = 45)
     @Column(name = "FUNCIONARIO_RESPONSAVEL_SITUACAO")
     private String funcionarioResponsavelSituacao;
-    @Size(max = 45)
     @Column(name = "FUNCIONARIO_ATUAL")
     private String funcionarioAtual;
-    @Size(max = 500)
     @Column(name = "NOME_TRATAMENTO")
     private String nomeTratamento;
-    @Size(max = 45)
     @Column(name = "AVOCADO")
     private String avocado;
     @Column(name = "DATA_AVOCACAO")
@@ -116,39 +105,30 @@ public class OrcadoRealizado implements Serializable {
     private Date dataDesconciliacao;
     @Column(name = "DIAS_DESCONCILIADO")
     private Integer diasDesconciliado;
-    @Size(max = 100)
     @Column(name = "AUTOR")
     private String autor;
-    @Size(max = 100)
     @Column(name = "REU")
     private String reu;
     @Column(name = "DATA_ENTRADA_BD")
     @Temporal(TemporalType.DATE)
     private Date dataEntradaBd;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "CODIGO_SITUACAO")
     private int codigoSituacao;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "CODIGO_TRATAMENTO")
     private int codigoTratamento;
-    @Size(max = 45)
     @Column(name = "NATUREZA_NPJ")
     private String naturezaNpj;
-    @Size(max = 600)
     @Column(name = "ASSUNTO")
     private String assunto;
-    @Size(max = 600)
     @Column(name = "MATERIA")
     private String materia;
-    @Size(max = 400)
     @Column(name = "OBS_LIVRE")
     private String obsLivre;
     @Column(name = "DATA_PRIMEIRO_TRATAMENTO")
     @Temporal(TemporalType.DATE)
     private Date dataPrimeiroTratamento;
-    @Size(max = 45)
     @Column(name = "TRATADO_PRAZO")
     private String tratadoPrazo;
     @Column(name = "DATA_RETORNO_AGENCIA")

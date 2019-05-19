@@ -44,7 +44,7 @@ public class SolicitacaoLevantamentoDAO implements CrudDAO<SolicitacaoLevantamen
         
         
         try {
-            Connection con = ConnectionFactory.conectar("retab");
+            Connection con = ConnectionFactory.conectar("rejud");
             String sql = "SELECT * FROM rejud.tb_cpj_cadastro where NPJ like '%' ? '%'";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, entidade.getNpj());
@@ -87,7 +87,7 @@ public class SolicitacaoLevantamentoDAO implements CrudDAO<SolicitacaoLevantamen
        
         
         try {
-            Connection con = ConnectionFactory.conectar("retab");
+            Connection con = ConnectionFactory.conectar("rejud");
             String sql = "SELECT * FROM rejud.tb_cpj_cadastro where NPJ like '%' ? '%'";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, parametro);

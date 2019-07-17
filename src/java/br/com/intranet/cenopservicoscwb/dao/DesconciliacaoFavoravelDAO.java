@@ -263,6 +263,9 @@ public class DesconciliacaoFavoravelDAO implements CrudDAO<DesconciliacaoOB> {
                 desconciliacao.setMateria(rs.getString("MATERIA"));
                 desconciliacao.setAssunto(rs.getString("ASSUNTO"));
                 desconciliacao.setDataPrimeiroTratamento(rs.getDate("DATA_PRIMEIRO_TRATAMENTO"));
+                desconciliacao.setSituacaoNpj(rs.getString("SITUACAO_NPJ"));
+                desconciliacao.setAdvogadoBb(rs.getString("ADVOGADO_BB"));
+                desconciliacao.setDataColetaSituacaoNpj(rs.getDate("DATA_COLETA_SITUACAO_NPJ"));
                 desconciliacoes.add(desconciliacao);
                 
 

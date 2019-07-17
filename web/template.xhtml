@@ -64,6 +64,7 @@
                         <p:menuitem value="Tratar novas desconciliações" url="gerenciar-desconciliacoes.jsf"></p:menuitem> 
                         <p:menuitem value="Tratar favorável" url="gerenciar-favoravel.jsf"></p:menuitem> 
                         <p:menuitem value="Tratar desfavorável" url="gerenciar-desconciliacao-desfavoravel.jsf"></p:menuitem> 
+                        <p:menuitem value="Tratar NT 2019/141" url="gerenciar-nt-2019-141.jsf"></p:menuitem> 
                         <p:menuitem value="Pesquisar base" url="gerenciar-desconciliacaoTotal.jsf"></p:menuitem> 
                         
                        
@@ -142,7 +143,7 @@
         <br/><h:outputText id="msn" style="margin-right: 10px " ></h:outputText>
 
         <br/><h:outputText value="Info funcionário atual:" style="margin-right: 10px " ></h:outputText>
-        <br/><h:outputText value="Nome:#{funcionarioBean.chave} - #{funcionarioBean.nomeInteiro}" style="margin-right: 10px " ></h:outputText>
+        <br/><h:outputText value="Nome:#{funcionarioBean.nomeInteiro}" style="margin-right: 10px " ></h:outputText>
         <br/><h:outputText value="Gerente:#{funcionarioBean.gerente}" style="margin-right: 10px " ></h:outputText>
         <br/><h:outputText value="Uor habitual : #{funcionarioBean.uor}" style="margin-right: 10px " ></h:outputText>
         <br/><h:outputText value="Função : #{funcionarioBean.funcao}" style="margin-right: 10px " ></h:outputText>

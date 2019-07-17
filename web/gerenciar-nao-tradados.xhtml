@@ -212,7 +212,7 @@
                 <p:column headerText="Valor da desconciliação" sortBy="#{d.valorDesconciliacao}">
                     <h:outputText   value="#{d.valorDesconciliacao}">
                     
-                     <f:convertNumber type="number"  maxFractionDigits="2" />
+                   <f:converter converterId="converterDoubleToMoney"></f:converter>
                     </h:outputText>
 
                 </p:column>

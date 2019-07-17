@@ -18,12 +18,11 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author F5078775
+ * @author f5078775
  */
 @Entity
 @Table(name = "tb_desconciliacao_ob_paj")
@@ -63,7 +62,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "DesconciliacaoOB.findByDataRotinaSaldoDjo", query = "SELECT d FROM DesconciliacaoOB d WHERE d.dataRotinaSaldoDjo = :dataRotinaSaldoDjo")
     , @NamedQuery(name = "DesconciliacaoOB.findByPrefixoOrigem", query = "SELECT d FROM DesconciliacaoOB d WHERE d.prefixoOrigem = :prefixoOrigem")
     , @NamedQuery(name = "DesconciliacaoOB.findByBancoDepositario", query = "SELECT d FROM DesconciliacaoOB d WHERE d.bancoDepositario = :bancoDepositario")
-    , @NamedQuery(name = "DesconciliacaoOB.findByIdDesconciliacaoDiris", query = "SELECT d FROM DesconciliacaoOB d WHERE d.idDesconciliacaoDiris = :idDesconciliacaoDiris")})
+    , @NamedQuery(name = "DesconciliacaoOB.findByIdDesconciliacaoDiris", query = "SELECT d FROM DesconciliacaoOB d WHERE d.idDesconciliacaoDiris = :idDesconciliacaoDiris")
+    , @NamedQuery(name = "DesconciliacaoOB.findBySituacaoNpj", query = "SELECT d FROM DesconciliacaoOB d WHERE d.situacaoNpj = :situacaoNpj")
+    , @NamedQuery(name = "DesconciliacaoOB.findByAdvogadoBb", query = "SELECT d FROM DesconciliacaoOB d WHERE d.advogadoBb = :advogadoBb")
+    , @NamedQuery(name = "DesconciliacaoOB.findByDataColetaSituacaoNpj", query = "SELECT d FROM DesconciliacaoOB d WHERE d.dataColetaSituacaoNpj = :dataColetaSituacaoNpj")
+    , @NamedQuery(name = "DesconciliacaoOB.findByDataSaldoContaControle", query = "SELECT d FROM DesconciliacaoOB d WHERE d.dataSaldoContaControle = :dataSaldoContaControle")
+    , @NamedQuery(name = "DesconciliacaoOB.findByOrigem", query = "SELECT d FROM DesconciliacaoOB d WHERE d.origem = :origem")
+    , @NamedQuery(name = "DesconciliacaoOB.findBySla", query = "SELECT d FROM DesconciliacaoOB d WHERE d.sla = :sla")})
 public class DesconciliacaoOB implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -72,15 +77,12 @@ public class DesconciliacaoOB implements Serializable {
     @Basic(optional = false)
     @Column(name = "CODIGO_DESCONCILIACAO")
     private Integer codigoDesconciliacao;
-    
     @Column(name = "NPJ")
     private String npj;
     @Column(name = "VARIACAO_NPJ")
     private Integer variacaoNpj;
-   
     @Column(name = "CONTA_CONTROLE")
     private String contaControle;
-   
     @Column(name = "CONTA_DEPOSITARIA")
     private String contaDepositaria;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -90,7 +92,6 @@ public class DesconciliacaoOB implements Serializable {
     private Double saldoDeposito;
     @Column(name = "VALOR_DESCONCILIACAO")
     private Double valorDesconciliacao;
-    
     @Column(name = "SITUACAO")
     private String situacao;
     @Column(name = "DATA_SITUACAO")
@@ -99,16 +100,12 @@ public class DesconciliacaoOB implements Serializable {
     @Column(name = "DATA_RETORNO")
     @Temporal(TemporalType.DATE)
     private Date dataRetorno;
-   
     @Column(name = "FUNCIONARIO_RESPONSAVEL_SITUACAO")
     private String funcionarioResponsavelSituacao;
-   
     @Column(name = "FUNCIONARIO_ATUAL")
     private String funcionarioAtual;
-   
     @Column(name = "NOME_TRATAMENTO")
     private String nomeTratamento;
-   
     @Column(name = "AVOCADO")
     private String avocado;
     @Column(name = "DATA_AVOCACAO")
@@ -119,10 +116,8 @@ public class DesconciliacaoOB implements Serializable {
     private Date dataDesconciliacao;
     @Column(name = "DIAS_DESCONCILIADO")
     private Integer diasDesconciliado;
-   
     @Column(name = "AUTOR")
     private String autor;
-   
     @Column(name = "REU")
     private String reu;
     @Column(name = "DATA_ENTRADA_BD")
@@ -132,22 +127,17 @@ public class DesconciliacaoOB implements Serializable {
     private Integer codigoSituacao;
     @Column(name = "CODIGO_TRATAMENTO")
     private Integer codigoTratamento;
-    
     @Column(name = "NATUREZA_NPJ")
     private String naturezaNpj;
-    
     @Column(name = "ASSUNTO")
     private String assunto;
-    
     @Column(name = "MATERIA")
     private String materia;
-   
     @Column(name = "OBS_LIVRE")
     private String obsLivre;
     @Column(name = "DATA_PRIMEIRO_TRATAMENTO")
     @Temporal(TemporalType.DATE)
     private Date dataPrimeiroTratamento;
-   
     @Column(name = "TRATADO_PRAZO")
     private String tratadoPrazo;
     @Column(name = "DATA_RETORNO_AGENCIA")
@@ -158,12 +148,24 @@ public class DesconciliacaoOB implements Serializable {
     private Date dataRotinaSaldoDjo;
     @Column(name = "PREFIXO_ORIGEM")
     private Integer prefixoOrigem;
-  
     @Column(name = "BANCO_DEPOSITARIO")
     private String bancoDepositario;
-   
     @Column(name = "ID_DESCONCILIACAO_DIRIS")
     private String idDesconciliacaoDiris;
+    @Column(name = "SITUACAO_NPJ")
+    private String situacaoNpj;
+    @Column(name = "ADVOGADO_BB")
+    private String advogadoBb;
+    @Column(name = "DATA_COLETA_SITUACAO_NPJ")
+    @Temporal(TemporalType.DATE)
+    private Date dataColetaSituacaoNpj;
+    @Column(name = "DATA_SALDO_CONTA_CONTROLE")
+    @Temporal(TemporalType.DATE)
+    private Date dataSaldoContaControle;
+    @Column(name = "ORIGEM")
+    private String origem;
+    @Column(name = "SLA")
+    private Integer sla;
 
     public DesconciliacaoOB() {
     }
@@ -442,6 +444,54 @@ public class DesconciliacaoOB implements Serializable {
 
     public void setIdDesconciliacaoDiris(String idDesconciliacaoDiris) {
         this.idDesconciliacaoDiris = idDesconciliacaoDiris;
+    }
+
+    public String getSituacaoNpj() {
+        return situacaoNpj;
+    }
+
+    public void setSituacaoNpj(String situacaoNpj) {
+        this.situacaoNpj = situacaoNpj;
+    }
+
+    public String getAdvogadoBb() {
+        return advogadoBb;
+    }
+
+    public void setAdvogadoBb(String advogadoBb) {
+        this.advogadoBb = advogadoBb;
+    }
+
+    public Date getDataColetaSituacaoNpj() {
+        return dataColetaSituacaoNpj;
+    }
+
+    public void setDataColetaSituacaoNpj(Date dataColetaSituacaoNpj) {
+        this.dataColetaSituacaoNpj = dataColetaSituacaoNpj;
+    }
+
+    public Date getDataSaldoContaControle() {
+        return dataSaldoContaControle;
+    }
+
+    public void setDataSaldoContaControle(Date dataSaldoContaControle) {
+        this.dataSaldoContaControle = dataSaldoContaControle;
+    }
+
+    public String getOrigem() {
+        return origem;
+    }
+
+    public void setOrigem(String origem) {
+        this.origem = origem;
+    }
+
+    public Integer getSla() {
+        return sla;
+    }
+
+    public void setSla(Integer sla) {
+        this.sla = sla;
     }
 
     @Override

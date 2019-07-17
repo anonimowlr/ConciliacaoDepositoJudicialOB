@@ -336,6 +336,11 @@ public class DesconciliacaoConexaoDAO implements CrudDAO<DesconciliacaoOB> {
                 desconciliacao.setDataPrimeiroTratamento(rs.getDate("DATA_PRIMEIRO_TRATAMENTO"));
                 desconciliacao.setTratadoPrazo(rs.getString("TRATADO_PRAZO"));
                 desconciliacao.setDataRetornoAgencia(rs.getDate("DATA_RETORNO_AGENCIA"));
+                desconciliacao.setSituacaoNpj(rs.getString("SITUACAO_NPJ"));
+                desconciliacao.setAdvogadoBb(rs.getString("ADVOGADO_BB"));
+                desconciliacao.setDataColetaSituacaoNpj(rs.getDate("DATA_COLETA_SITUACAO_NPJ"));
+                desconciliacao.setNaturezaNpj(rs.getString("NATUREZA_NPJ"));
+                
                 desconciliacoes.add(desconciliacao);
 
             }

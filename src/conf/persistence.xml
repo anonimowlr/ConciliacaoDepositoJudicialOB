@@ -15,6 +15,7 @@
     <class>br.com.intranet.cenopservicoscwb.entity.OrcadoRealizado</class>
     <class>br.com.intranet.cenopservicoscwb.entity.SolicitacaoLevantamento</class>
     <class>br.com.intranet.cenopservicoscwb.entity.TbAtividade</class>
+    <class>br.com.intranet.cenopservicoscwb.bean.DesconciliacaoOB</class>
     <properties>
       <!-- Propriedades JDBC -->
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

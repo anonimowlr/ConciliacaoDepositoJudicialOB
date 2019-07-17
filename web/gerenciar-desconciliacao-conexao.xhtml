@@ -100,9 +100,16 @@
                 <h:outputLabel  value="#{desconciliacaoConexaoBean.entidade.npj}"   style="color: blue"/>
                 <h:outputLabel for="" value="Variação"></h:outputLabel>
                 <h:outputLabel  value="#{desconciliacaoConexaoBean.entidade.variacaoNpj}"   style="color: blue"/>
-
+                <h:outputLabel for="" value="Situação NPJ"></h:outputLabel>
+                <h:outputLabel  value="#{desconciliacaoConexaoBean.entidade.situacaoNpj}"   style="color: red"/>
+               
+                <h:outputLabel for="" value="Natureza NPJ"></h:outputLabel>
+                <h:outputLabel  value="#{desconciliacaoConexaoBean.entidade.naturezaNpj}"   style="color: green"/>
+                
+                <h:outputLabel for="" value="Advogado BB"></h:outputLabel>
+                <h:outputLabel  value="#{desconciliacaoConexaoBean.entidade.advogadoBb}"  />
                 <h:outputLabel for="" value="Número da conta depositária" ></h:outputLabel>
-                <h:outputLabel value="#{desconciliacaoConexaoBean.entidade.contaDepositaria}"  style="color: blue"/>
+                <p:inputText value="#{desconciliacaoConexaoBean.entidade.contaDepositaria}"  style="color: blue"/>
 
                 <h:outputLabel for="" value="Numero da conta controle"></h:outputLabel>
                 <p:inputText  value="#{desconciliacaoConexaoBean.entidade.contaControle}"  disabled="true" style="color: blue"></p:inputText>
@@ -157,53 +164,7 @@
                 
                 
                 
-                 <h:outputLabel for="" value="Resgates" rendered="#{solicitacaoLevantamentoBean.isTabelaResgate()}"  ></h:outputLabel>
-                <p:outputLabel rendered="#{solicitacaoLevantamentoBean.isTabelaResgate()}" >
-                    <p:dataTable scrollWidth="auto" scrollRows="20" scrollable="true" liveScroll="true" scrollHeight="auto"   style="font-size: 10pt;width: auto" value="#{solicitacaoLevantamentoBean.entidades}" var="s" id="tbLevantamentos">
-                        <p:column headerText="NPJ">
-                            <h:outputText value="#{s.npj}"></h:outputText>  
-                        </p:column>
-                        <p:column headerText="conta judicial">
-                            <h:outputText value="#{s.contaDepositaria}"></h:outputText>  
-                        </p:column>
-                        <p:column headerText="Valor do resgate">
-                            <h:outputText value="#{s.IDValor}">
-                            <f:convertNumber type="number"  maxFractionDigits="2" />
-                            </h:outputText>  
-                        </p:column>
-                        <p:column headerText="Beneficiário">
-                            <h:outputText value="#{s.djo51F12ParteNome}">
-                            </h:outputText>  
-                        </p:column>
-                        <p:column headerText="Situação do resgate">
-                            <h:outputText value="#{s.IDSituação}">
-                            </h:outputText>  
-                        </p:column>
-                        <p:column headerText="Finalidade do resgate no Djo">
-                            <h:outputText value="#{s.djo51Finalidade}">
-                            </h:outputText>  
-                        </p:column>
-                        <p:column headerText="Agência resp mandado">
-                            <h:outputText value="#{s.djo51AgenciaResponsavel}">
-                            </h:outputText>  
-                        </p:column>
-                        <p:column headerText="Alvará eletrônico">
-                            <h:outputText value="#{s.alvaraEletronico}">
-                            </h:outputText>  
-                        </p:column>
-                        <p:column headerText="Obs contabilização automática">
-                            <h:outputText value="#{s.obsContabilizacao}">
-                            </h:outputText>  
-                        </p:column>
-                        <p:column headerText="Tratar no Portal">
-                         <p:button  style="width: auto"  value="Tratar levantamento" href="https://juridico.intranet.bb.com.br/paj/levantamento/solicitacao/pesquisar"   target="_blank"/>
-                        <p:button  style="width: auto"  value="Acessar documento" href="https://juridico.intranet.bb.com.br/paj/paginas/negocio/processo/consultar/relatorioCompleto.seam?idProcessoPrincipal=#{s.npj}"   target="_blank"/>
-                  
-                        </p:column>
-                        
-                    </p:dataTable>
-                </p:outputLabel>
-                
+               
 
 
 

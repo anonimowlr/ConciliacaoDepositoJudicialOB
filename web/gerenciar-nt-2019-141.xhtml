@@ -21,14 +21,14 @@
         <p:growl autoUpdate="true" showDetail="true"></p:growl>
 
 
-        <p:fieldset legend="Desconciliações desfavoráveis">
+        <p:fieldset legend="Novas Desconciliações">
 
 
-            <p:toolbar rendered="#{desconciliacaoOBDesfavoravelBean.isEditar()}" >
+            <p:toolbar rendered="#{desconciliacaoNt2019141bean.isEditar()}" >
                 <p:toolbarGroup >
 
 
-                    <p:commandButton  title="Salvar" value="Salvar" icon="ui-icon-disk" action="#{desconciliacaoOBDesfavoravelBean.validarParaSalvar()}" rendered="#{desconciliacaoOBDesfavoravelBean.isBuscar()==false}" update="@form"></p:commandButton>
+                    <p:commandButton  title="Salvar" value="Salvar" icon="ui-icon-disk" action="#{desconciliacaoNt2019141bean.validarParaSalvar()}" rendered="#{desconciliacaoNt2019141bean.isBuscar()==false}" update=":frmPrincipal"></p:commandButton>
                    
                   
 
@@ -40,12 +40,12 @@
             
             
 
-            <p:toolbar rendered="#{desconciliacaoOBDesfavoravelBean.isBuscar()}" >
+            <p:toolbar rendered="#{desconciliacaoNt2019141bean.isBuscar()}" >
                <p:toolbarGroup >
 
 
 
-                   <p:commandButton  value="Próxima desconciliação" action="#{desconciliacaoOBDesfavoravelBean.buscar()}" rendered="#{desconciliacaoOBDesfavoravelBean.isBuscar()}"  update=":frmPrincipal"></p:commandButton>
+                   <p:commandButton  value="Próxima desconciliação" action="#{desconciliacaoNt2019141bean.buscar()}" rendered="#{desconciliacaoNt2019141bean.isBuscar()}"  update=":frmPrincipal"></p:commandButton>
                 </p:toolbarGroup>
             </p:toolbar>
 
@@ -53,13 +53,13 @@
 
 
 
-            <p:panelGrid columns="2"  id ="painel" rendered="#{desconciliacaoOBDesfavoravelBean.isBuscar()== false}">
+            <p:panelGrid columns="2"  id ="painel" rendered="#{desconciliacaoNt2019141bean.isBuscar()== false}">
                 
                 
                   <h:outputLabel for="" value="STATUS"></h:outputLabel>
 
 
-                  <p:selectOneMenu required="true" requiredMessage="Selecione o Status" immediate="true"    id ="status"  value="#{desconciliacaoOBDesfavoravelBean.entidade.codigoSituacao}"  >
+                  <p:selectOneMenu required="true" requiredMessage="Selecione o Status" immediate="true"    id ="status"  value="#{desconciliacaoNt2019141bean.entidade.codigoSituacao}"  >
                     <f:selectItem noSelectionOption="true" itemLabel="Selecione uma opção" itemValue=""/>
                         
                     <f:selectItems  value="#{grupoStatusBean.entidades}" var="a" itemValue="#{a.codigoStatus}" itemLabel="#{a.nomeStatus}">
@@ -75,66 +75,71 @@
 
                 <h:outputLabel for="" value="Tipo de tratamento" rendered="#{grupoTratamentoBean.isTratamento()}" ></h:outputLabel>
 
-                <p:selectOneMenu filter="true"  filterMatchMode="contains"   id="selectObs" value="#{desconciliacaoOBDesfavoravelBean.entidade.codigoTratamento}" >
+                <p:selectOneMenu filter="true"  filterMatchMode="contains"   id="selectObs" value="#{desconciliacaoNt2019141bean.entidade.codigoTratamento}" >
                     <f:selectItem  itemLabel="Selecione uma opção" itemValue="0"/>
                     <f:selectItems  value="#{grupoTratamentoBean.entidades}" var="a" itemValue="#{a.codigoTratamento}" itemLabel="#{a.nomeTratamento}"></f:selectItems>
 
                 </p:selectOneMenu>
                 
                  <h:outputLabel for="" value="Observação"></h:outputLabel>
-                <h:inputTextarea   value="#{desconciliacaoOBDesfavoravelBean.entidade.obsLivre}"   style="color: blue">
+                <h:inputTextarea   value="#{desconciliacaoNt2019141bean.entidade.obsLivre}"   style="color: blue">
                 </h:inputTextarea>
 
 
                 <h:outputLabel for="" value="NPJ"></h:outputLabel>
-                <h:outputLabel  value="#{desconciliacaoOBDesfavoravelBean.entidade.npj}"   style="color: blue"/>
+                <h:outputLabel  value="#{desconciliacaoNt2019141bean.entidade.npj}"   style="color: blue"/>
                 <h:outputLabel for="" value="Variação"></h:outputLabel>
-                <h:outputLabel  value="#{desconciliacaoOBDesfavoravelBean.entidade.variacaoNpj}"   style="color: blue"/>
+                <h:outputLabel  value="#{desconciliacaoNt2019141bean.entidade.variacaoNpj}"   style="color: blue"/>
+                <h:outputLabel for="" value="Natureza NPJ"></h:outputLabel>
+                <h:outputLabel  value="#{desconciliacaoNt2019141bean.entidade.naturezaNpj}"   style="color: green"/>
                 <h:outputLabel for="" value="Situação NPJ"></h:outputLabel>
-                <h:outputLabel  value="#{desconciliacaoOBDesfavoravelBean.entidade.situacaoNpj}"   style="color: red"/>
+                <h:outputLabel  value="#{desconciliacaoNt2019141bean.entidade.situacaoNpj}"   style="color: red"/>
                 <h:outputLabel for="" value="Advogado BB"></h:outputLabel>
-                <h:outputLabel  value="#{desconciliacaoOBDesfavoravelBean.entidade.advogadoBb}"  />
+                <h:outputLabel  value="#{desconciliacaoNt2019141bean.entidade.advogadoBb}"  />
+                <h:outputLabel for="" value="Origem"></h:outputLabel>
+                <h:outputLabel  value="#{desconciliacaoNt2019141bean.entidade.origem}"  />
+                
                 <h:outputLabel for="" value="Número da conta depositária" ></h:outputLabel>
-                <h:outputLabel value="#{desconciliacaoOBDesfavoravelBean.entidade.contaDepositaria}"  style="color: blue"/>
+                <h:outputLabel value="#{desconciliacaoNt2019141bean.entidade.contaDepositaria}"  style="color: blue"/>
 
                 <h:outputLabel for="" value="Numero da conta controle"></h:outputLabel>
-                <p:inputText  value="#{desconciliacaoOBDesfavoravelBean.entidade.contaControle}"  disabled="true" style="color: blue"></p:inputText>
+                <p:inputText  value="#{desconciliacaoNt2019141bean.entidade.contaControle}"  disabled="true" style="color: blue"></p:inputText>
               
                 
                 <h:outputLabel for="" value="Banco depositário"></h:outputLabel>
-                <h:outputLabel  value="#{desconciliacaoOBDesfavoravelBean.entidade.bancoDepositario}"   style="color: blue"/>
+                <h:outputLabel  value="#{desconciliacaoNt2019141bean.entidade.bancoDepositario}"   style="color: blue"/>
                 
                 <h:outputLabel for="" value="Matéria"></h:outputLabel>
-                <h:outputLabel  value="#{desconciliacaoOBDesfavoravelBean.entidade.materia}"   style="color: blue"/>
+                <h:outputLabel  value="#{desconciliacaoNt2019141bean.entidade.materia}"   style="color: blue"/>
                 
                 
                 <h:outputLabel for="" value="Assunto"></h:outputLabel>
-                <h:outputLabel  value="#{desconciliacaoOBDesfavoravelBean.entidade.assunto}"   style="color: blue"/>
+                <h:outputLabel  value="#{desconciliacaoNt2019141bean.entidade.assunto}"   style="color: blue"/>
 
                 <h:outputLabel for="" value="Saldo da conta controle"></h:outputLabel>
-                <p:inputText  value="#{desconciliacaoOBDesfavoravelBean.entidade.saldoContaControle}"  disabled="true" style="color: blue">
+                <p:inputText  value="#{desconciliacaoNt2019141bean.entidade.saldoContaControle}"  disabled="true" style="color: blue">
                  <f:convertNumber type="number"  maxFractionDigits="2" />
                 </p:inputText>
 
                 <h:outputLabel for="" value="Saldo conta depositária"></h:outputLabel>
-                <p:inputText  value="#{desconciliacaoOBDesfavoravelBean.entidade.saldoDeposito}"  disabled="true" style="color: blue">
+                <p:inputText  value="#{desconciliacaoNt2019141bean.entidade.saldoDeposito}"  disabled="true" style="color: blue">
                 
                  <f:convertNumber type="number"  maxFractionDigits="2" />
                 </p:inputText>
 
                 <h:outputLabel for="" value="Valor da desconciliação"></h:outputLabel>
-                <p:inputText  value="#{desconciliacaoOBDesfavoravelBean.entidade.valorDesconciliacao}"  disabled="true" style="color: blue">
+                <p:inputText  value="#{desconciliacaoNt2019141bean.entidade.valorDesconciliacao}"  disabled="true" style="color: blue">
                  <f:convertNumber type="number"  maxFractionDigits="2" />
                 
                 </p:inputText>
 
                 <h:outputLabel for="" value="Data do último tratamento"></h:outputLabel>
-                <p:inputText  value="#{desconciliacaoOBDesfavoravelBean.entidade.dataSituacao}"  disabled="true" style="color: blue">
+                <p:inputText  value="#{desconciliacaoNt2019141bean.entidade.dataSituacao}"  disabled="true" style="color: blue">
                     <f:convertDateTime pattern="dd/MM/yyyy" />
                 </p:inputText>
                 
                 <h:outputLabel for="" value="Data desconciliacao"></h:outputLabel>
-                <p:inputText  value="#{desconciliacaoOBDesfavoravelBean.entidade.dataDesconciliacao}"  disabled="true" style="color: blue">
+                <p:inputText  value="#{desconciliacaoNt2019141bean.entidade.dataDesconciliacao}"  disabled="true" style="color: blue">
                     <f:convertDateTime pattern="dd/MM/yyyy" />
                 </p:inputText>
                 
@@ -145,7 +150,7 @@
                 
                 
                 <h:outputLabel for="" value="Data entrada"></h:outputLabel>
-                <p:inputText  value="#{desconciliacaoOBDesfavoravelBean.entidade.dataEntradaBd}"  disabled="true" style="color: blue">
+                <p:inputText  value="#{desconciliacaoNt2019141bean.entidade.dataEntradaBd}"  disabled="true" style="color: blue">
                     <f:convertDateTime pattern="dd/MM/yyyy" />
                 </p:inputText>
                 
@@ -229,10 +234,10 @@
 
 
 
-            <p:dataTable scrollWidth="auto" scrollRows="20" scrollable="true" liveScroll="true" scrollHeight="500"   style="font-size: 10pt;width: auto"   value="#{desconciliacaoOBDesfavoravelBean.entidades}" var="desconciliacao" rendered="#{desconciliacaoOBDesfavoravelBean.isBuscar()}" rows="1" paginator="true">
+            <p:dataTable scrollWidth="auto" scrollRows="20" scrollable="true" liveScroll="true" scrollHeight="500"   style="font-size: 10pt;width: auto"   value="#{desconciliacaoNt2019141bean.entidades}" var="desconciliacao" rendered="#{desconciliacaoNt2019141bean.isBuscar()}" rows="1" paginator="true">
 
                 <p:column style="width: 150px">
-                    <p:commandButton    style="width: 150px" value="Tratar" action="#{desconciliacaoOBDesfavoravelBean.verAvocacao(desconciliacao)}" actionListener="#{solicitacaoLevantamentoBean.buscarPorParametro(desconciliacao.npj)}"   update="@form"> </p:commandButton>  
+                    <p:commandButton    style="width: 150px" value="Tratar" action="#{desconciliacaoNt2019141bean.verAvocacao(desconciliacao)}" actionListener="#{solicitacaoLevantamentoBean.buscarPorParametro(desconciliacao.npj)}"   update="@form"> </p:commandButton>  
 
 
                 </p:column>

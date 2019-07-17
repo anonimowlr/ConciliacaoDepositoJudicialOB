@@ -28,7 +28,7 @@
                 <p:toolbarGroup >
 
 
-                    <p:commandButton  value="Salvar" action="#{desconciliacaoTotalBean.validarParaSalvar()}" rendered="#{desconciliacaoTotalBean.isBuscar()==false}" update=":frmPrincipal"></p:commandButton>
+                    <p:commandButton  value="Salvar" action="#{desconciliacaoTotalBean.salvar()}" rendered="#{desconciliacaoTotalBean.isBuscar()==false}" update="@all"></p:commandButton>
                     <p:commandButton  value="Voltar para base" icon=" ui-icon-arrowrefresh-1-w" action="#{desconciliacaoTotalBean.buscar()}"  update=":frmPrincipal"></p:commandButton>
                    
                 </p:toolbarGroup>
@@ -81,10 +81,18 @@
 
                 
                 <h:outputLabel for="" value="NPJ"></h:outputLabel>
-                <h:outputLabel  value="#{desconciliacaoTotalBean.entidade.npj}"   style="color: blue"/>
+                <p:inputMask maxlength="11" mask="99999999999"  value="#{desconciliacaoTotalBean.entidade.npj}"   style="color: blue"/>
+               
+                <h:outputLabel for="" value="Variação NPJ"></h:outputLabel>
+                <p:inputMask maxlength="1" mask="9"  value="#{desconciliacaoTotalBean.entidade.variacaoNpj}"   style="color: blue"/>
+                
+                <h:outputLabel for="" value="Situação NPJ"></h:outputLabel>
+                <h:outputLabel  value="#{desconciliacaoTotalBean.entidade.situacaoNpj}"   style="color: red"/>
+                <h:outputLabel for="" value="Advogado BB"></h:outputLabel>
+                <h:outputLabel  value="#{desconciliacaoTotalBean.entidade.advogadoBb}"  />
                 
                 <h:outputLabel for="" value="Número da conta depositária" ></h:outputLabel>
-                <h:outputLabel value="#{desconciliacaoTotalBean.entidade.contaDepositaria}"  style="color: blue"/>
+                <p:inputText value="#{desconciliacaoTotalBean.entidade.contaDepositaria}"  style="color: blue"/>
 
                 <h:outputLabel for="" value="Numero da conta controle"></h:outputLabel>
                 <p:inputText  value="#{desconciliacaoTotalBean.entidade.contaControle}"  disabled="true" style="color: blue"></p:inputText>
@@ -101,14 +109,18 @@
                 <h:outputLabel  value="#{desconciliacaoTotalBean.entidade.assunto}"   style="color: blue"/>
 
                 <h:outputLabel for="" value="Saldo da conta controle"></h:outputLabel>
-                <p:inputText  value="#{desconciliacaoTotalBean.entidade.saldoContaControle}"  disabled="true" style="color: blue"></p:inputText>
+                <p:inputText  value="#{desconciliacaoTotalBean.entidade.saldoContaControle}"  disabled="true" style="color: blue">
+                <f:converter converterId="converterDoubleToMoney"></f:converter>
+                </p:inputText>
 
                 <h:outputLabel for="" value="Saldo conta depositária"></h:outputLabel>
-                <p:inputText  value="#{desconciliacaoTotalBean.entidade.saldoDeposito}"  disabled="true" style="color: blue"></p:inputText>
+                <p:inputText  value="#{desconciliacaoTotalBean.entidade.saldoDeposito}"  disabled="true" style="color: blue">
+                <f:converter converterId="converterDoubleToMoney"></f:converter>
+                </p:inputText>
 
                 <h:outputLabel for="" value="Valor da desconciliação"></h:outputLabel>
                 <p:inputText  value="#{desconciliacaoTotalBean.entidade.valorDesconciliacao}"  disabled="true" style="color: blue">
-                <f:convertNumber type="number"  maxFractionDigits="2" />
+                <f:converter converterId="converterDoubleToMoney"></f:converter>
                 
                 </p:inputText>
 
@@ -189,11 +201,11 @@
 
 
 
-                <p:column   headerText="Id" sortBy="#{d.idDesconciliacaoDiris}" filterBy="#{d.idDesconciliacaoDiris}" filterMatchMode="contains">
+                <p:column style="width: 100px"   headerText="Id" sortBy="#{d.idDesconciliacaoDiris}" filterBy="#{d.idDesconciliacaoDiris}" filterMatchMode="contains">
                     <h:outputText  value="#{d.idDesconciliacaoDiris}"></h:outputText>
 
                 </p:column>
-                <p:column   headerText="Npj" sortBy="#{d.npj}" filterBy="#{d.npj}" filterMatchMode="contains">
+                <p:column style="width: 100px"  headerText="Npj" sortBy="#{d.npj}" filterBy="#{d.npj}" filterMatchMode="contains">
                     <h:outputText  value="#{d.npj}"></h:outputText>
 
                 </p:column>
@@ -203,17 +215,38 @@
                     <h:outputText value="#{d.variacaoNpj}"></h:outputText>
 
                 </p:column>
+               
+                <p:column style="width: 100px" headerText="Situação NPJ" sortBy="#{d.situacaoNpj}" filterBy="#{d.situacaoNpj}"  filterMatchMode="contains">
+                    <h:outputText value="#{d.situacaoNpj}"></h:outputText>
+
+                </p:column>
+                <p:column style="width: 100px" headerText="Data da sit. NPJ" sortBy="#{d.dataColetaSituacaoNpj}" filterBy="#{d.dataColetaSituacaoNpj}"  filterMatchMode="contains">
+                    <h:outputText value="#{d.dataColetaSituacaoNpj}">
+                    
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    
+                    </h:outputText>
+
+                </p:column>
+                <p:column style="width: 100px" headerText="Advogado BB" sortBy="#{d.advogadoBb}" filterBy="#{d.advogadoBb}"  filterMatchMode="contains">
+                    <h:outputText value="#{d.advogadoBb}">
+                    
+                        
+                    
+                    </h:outputText>
+
+                </p:column>
 
 
 
 
 
 
-                <p:column headerText="Conta depositária" sortBy="#{d.contaDepositaria}" filterBy="#{d.contaDepositaria}" filterMatchMode="contains">
+                <p:column style="width: 100px" headerText="Conta depositária" sortBy="#{d.contaDepositaria}" filterBy="#{d.contaDepositaria}" filterMatchMode="contains">
                     <h:outputText   value="#{d.contaDepositaria}"></h:outputText>
 
                 </p:column>
-                <p:column headerText="Banco depositario" sortBy="#{d.bancoDepositario}" filterBy="#{d.bancoDepositario}" filterMatchMode="contains">
+                <p:column style="width: 100px" headerText="Banco depositario" sortBy="#{d.bancoDepositario}" filterBy="#{d.bancoDepositario}" filterMatchMode="contains">
                     <h:outputText   value="#{d.bancoDepositario}"></h:outputText>
 
                 </p:column>
@@ -221,30 +254,44 @@
                
 
 
-                <p:column headerText="Valor da desconciliação" sortBy="#{d.valorDesconciliacao}">
+                <p:column style="width: 100px" headerText="Valor da desconciliação" sortBy="#{d.valorDesconciliacao}">
                     <h:outputText   value="#{d.valorDesconciliacao}">
-                      <f:convertNumber type="number"  maxFractionDigits="2" />
+                     <f:converter converterId="converterDoubleToMoney"></f:converter>
+                    </h:outputText>
+
+                </p:column>
+                
+                <p:column style="width: 100px" headerText="Saldo Contábil" sortBy="#{d.saldoContaControle}" filterBy="#{d.saldoContaControle}">
+                    <h:outputText   value="#{d.saldoContaControle}">
+                     <f:converter converterId="converterDoubleToMoney"></f:converter>
+                    </h:outputText>
+
+                </p:column>
+
+                
+                <p:column style="width: 100px" headerText="Data Saldo Contábil" sortBy="#{d.dataSaldoContaControle}" filterBy="#{d.dataSaldoContaControle}" filterMatchMode="contains">
+                    <h:outputText  value="#{d.dataSaldoContaControle}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
                     </h:outputText>
 
                 </p:column>
 
 
 
-
-                <p:column headerText="Status" sortBy="#{d.situacao}" filterBy="#{d.situacao}" filterMatchMode="contains">
+                <p:column style="width: 100px" headerText="Status" sortBy="#{d.situacao}" filterBy="#{d.situacao}" filterMatchMode="contains">
                     <h:outputText   value="#{d.situacao}"></h:outputText>
 
                 </p:column>
                 
                 
-                <p:column headerText="Complemento Status" sortBy="#{d.nomeTratamento}" filterBy="#{d.nomeTratamento}" filterMatchMode="contains">
+                <p:column style="width: 100px" headerText="Complemento Status" sortBy="#{d.nomeTratamento}" filterBy="#{d.nomeTratamento}" filterMatchMode="contains">
                     <h:outputText   value="#{d.nomeTratamento}"></h:outputText>
 
                 </p:column>
 
                 
                 
-                  <p:column headerText="Observação" sortBy="#{d.obsLivre}" filterBy="#{d.obsLivre}" filterMatchMode="contains" >
+                  <p:column style="width: 100px" headerText="Observação" sortBy="#{d.obsLivre}" filterBy="#{d.obsLivre}" filterMatchMode="contains" >
                     <h:outputText  value="#{d.obsLivre}">
                       
                     </h:outputText>
@@ -252,21 +299,21 @@
                 </p:column>
                 
                 
-                <p:column headerText="Data entrada banco de dados" sortBy="#{d.dataEntradaBd}" filterBy="#{d.dataEntradaBd}" filterMatchMode="contains">
+                <p:column  style="width: 100px" headerText="Data entrada banco de dados" sortBy="#{d.dataEntradaBd}" filterBy="#{d.dataEntradaBd}" filterMatchMode="contains">
                     <p:outputLabel  value="#{d.dataEntradaBd}">
                         <f:convertDateTime pattern="dd/MM/yyyy" />
                     </p:outputLabel>
 
                 </p:column>
                 
-                <p:column headerText="Dias desconciliado" sortBy="#{d.diasDesconciliado}" filterBy="#{d.diasDesconciliado}" filterMatchMode="contains">
+                <p:column  style="width: 100px" headerText="Dias desconciliado" sortBy="#{d.diasDesconciliado}" filterBy="#{d.diasDesconciliado}" filterMatchMode="contains">
                     <h:outputText  value="#{d.diasDesconciliado}">
                     </h:outputText>
 
                 </p:column>
                 
                 
-                <p:column headerText="Data  primeiro Tratamento" sortBy="#{d.dataPrimeiroTratamento}" filterBy="#{d.dataPrimeiroTratamento}" filterMatchMode="contains">
+                <p:column style="width: 100px" headerText="Data  primeiro Tratamento" sortBy="#{d.dataPrimeiroTratamento}" filterBy="#{d.dataPrimeiroTratamento}" filterMatchMode="contains">
                     <h:outputText  value="#{d.dataPrimeiroTratamento}">
                         <f:convertDateTime pattern="dd/MM/yyyy" />
                     </h:outputText>
@@ -274,14 +321,14 @@
                 </p:column>
                 
                 
-                 <p:column headerText="Data Tratamento atual" sortBy="#{d.dataSituacao}" filterBy="#{d.dataSituacao}" filterMatchMode="contains">
+                 <p:column style="width: 100px" headerText="Data Tratamento atual" sortBy="#{d.dataSituacao}" filterBy="#{d.dataSituacao}" filterMatchMode="contains">
                     <h:outputText  value="#{d.dataSituacao}">
                         <f:convertDateTime pattern="dd/MM/yyyy" />
                     </h:outputText>
 
                 </p:column>
 
-                <p:column headerText="Data da desconciliacao Diris" sortBy="#{d.dataDesconciliacao}" filterBy="#{d.dataDesconciliacao}" filterMatchMode="contains" >
+                <p:column  style="width: 100px" headerText="Data da desconciliacao Diris" sortBy="#{d.dataDesconciliacao}" filterBy="#{d.dataDesconciliacao}" filterMatchMode="contains" >
                     <h:outputText  value="#{d.dataDesconciliacao}"    >
                         <f:convertDateTime pattern="dd/MM/yyyy" />
                     </h:outputText>
@@ -298,7 +345,7 @@
 
                 
                 
-                 <p:column headerText="Funcionario responsável último tratamento" sortBy="#{d.funcionarioResponsavelSituacao}" filterBy="#{d.funcionarioResponsavelSituacao}" filterMatchMode="contains" >
+                 <p:column style="width: 100px"  headerText="Funcionario responsável último tratamento" sortBy="#{d.funcionarioResponsavelSituacao}" filterBy="#{d.funcionarioResponsavelSituacao}" filterMatchMode="contains" >
                     <h:outputText  value="#{d.funcionarioResponsavelSituacao}">
                         
                     </h:outputText>
@@ -306,22 +353,34 @@
                 </p:column>
                 
                 
-                 <p:column headerText="Funcionario Atual" sortBy="#{d.funcionarioAtual}" filterBy="#{d.funcionarioAtual}" filterMatchMode="contains" >
+                 <p:column style="width: 100px"  headerText="Funcionario Atual" sortBy="#{d.funcionarioAtual}" filterBy="#{d.funcionarioAtual}" filterMatchMode="contains" >
                     <h:outputText  value="#{d.funcionarioAtual}">
                         
                     </h:outputText>
 
                 </p:column>
                 
-                <p:column exportable="false" headerText="Registro travado?" sortBy="#{d.avocado}" filterBy="#{d.avocado}" filterMatchMode="contains" >
+                <p:column  style="width: 100px" exportable="false" headerText="Registro travado?" sortBy="#{d.avocado}" filterBy="#{d.avocado}" filterMatchMode="contains" >
                     <h:outputText  value="#{d.avocado}">
                         
                     </h:outputText>
 
                 </p:column>
                 
-                 <p:column headerText="Tratado no Prazo?" sortBy="#{d.tratadoPrazo}" filterBy="#{d.tratadoPrazo}" filterMatchMode="contains" >
+                 <p:column style="width: 100px" headerText="Tratado no Prazo?" sortBy="#{d.tratadoPrazo}" filterBy="#{d.tratadoPrazo}" filterMatchMode="contains" >
                     <h:outputText  value="#{d.tratadoPrazo}">
+                        
+                    </h:outputText>
+
+                </p:column>
+                 <p:column style="width: 100px" headerText="origem" sortBy="#{d.origem}" filterBy="#{d.origem}" filterMatchMode="contains" >
+                    <h:outputText  value="#{d.origem}">
+                        
+                    </h:outputText>
+
+                </p:column>
+                 <p:column style="width: 100px" headerText="SLA" sortBy="#{d.sla}" filterBy="#{d.sla}" filterMatchMode="contains" >
+                    <h:outputText  value="#{d.sla}">
                         
                     </h:outputText>
 

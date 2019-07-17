@@ -31,7 +31,7 @@ public class DesconciliacaoTotalDAO implements CrudDAO<DesconciliacaoOB> {
 
     @Override
     public void salvar(DesconciliacaoOB entidade) throws ErroSistema {
-        GrupoStatusDAO statusDAO = new GrupoStatusDAO();
+         GrupoStatusDAO statusDAO = new GrupoStatusDAO();
         GrupoTratamentoDAO tratamentoDAO = new GrupoTratamentoDAO();
         FacesContext fc = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
@@ -42,68 +42,74 @@ public class DesconciliacaoTotalDAO implements CrudDAO<DesconciliacaoOB> {
             String sql;
             PreparedStatement stmt = null;
             Connection con = ConnectionFactory.conectar("rejud_ob");
+            
+          
+            
 
-            if (entidade.getDataPrimeiroTratamento() == null) {
-                sql = "UPDATE tb_desconciliacao_ob_paj set NPJ=?, CONTA_CONTROLE=? , CONTA_DEPOSITARIA=? , SALDO_CONTA_CONTROLE=? , SALDO_DEPOSITO=?"
+            if (entidade.getDataPrimeiroTratamento() == null ) {
+                sql = "UPDATE tb_desconciliacao_ob_paj set NPJ=?,VARIACAO_NPJ = ?, CONTA_CONTROLE=? , CONTA_DEPOSITARIA=? , SALDO_CONTA_CONTROLE=? , SALDO_DEPOSITO=?"
                         + " , VALOR_DESCONCILIACAO=? , SITUACAO=? , DATA_SITUACAO=? , FUNCIONARIO_RESPONSAVEL_SITUACAO=?"
                         + " , NOME_TRATAMENTO=? , AVOCADO=?, DATA_AVOCACAO=?, DATA_DESCONCILIACAO=?, OBS_LIVRE = ?, DATA_PRIMEIRO_TRATAMENTO = ?, TRATADO_PRAZO = ?, CODIGO_SITUACAO = ?,CODIGO_TRATAMENTO=?  where CODIGO_DESCONCILIACAO=?";
                 stmt = con.prepareStatement(sql);
                 try {
-                    stmt.setDate(15, Utils.getDataAtualFormatoMysql());
+                    stmt.setDate(16, Utils.getDataAtualFormatoMysql());
                 } catch (Exception ex) {
                     throw new ErroSistema("Erro ao tentar verificar data atual", ex);
                 }
-                if (entidade.getDiasDesconciliado() <= 30) {
-                    stmt.setString(16, "SIM");
-                } else {
-                    stmt.setString(16, "NAO");
-                }
-                stmt.setInt(17, entidade.getCodigoSituacao());
-                stmt.setInt(18, entidade.getCodigoTratamento());
-                stmt.setInt(19, entidade.getCodigoDesconciliacao());
-
-            } else {
-                sql = "UPDATE tb_desconciliacao_ob_paj set NPJ=?, CONTA_CONTROLE=? , CONTA_DEPOSITARIA=? , SALDO_CONTA_CONTROLE=? , SALDO_DEPOSITO=?"
-                        + " , VALOR_DESCONCILIACAO=? , SITUACAO=? , DATA_SITUACAO=? , FUNCIONARIO_RESPONSAVEL_SITUACAO=?"
-                        + " , NOME_TRATAMENTO=? , AVOCADO=?, DATA_AVOCACAO=?, DATA_DESCONCILIACAO=?, OBS_LIVRE = ?,CODIGO_SITUACAO=?,CODIGO_TRATAMENTO=?,TRATADO_PRAZO = ? where CODIGO_DESCONCILIACAO=?";
-                stmt = con.prepareStatement(sql);
-                stmt.setInt(15, entidade.getCodigoSituacao());
-                stmt.setInt(16, entidade.getCodigoTratamento());
                 if (entidade.getDiasDesconciliado() <= 30) {
                     stmt.setString(17, "SIM");
                 } else {
                     stmt.setString(17, "NAO");
                 }
+                stmt.setInt(18, entidade.getCodigoSituacao());
+                stmt.setInt(19, entidade.getCodigoTratamento());
+                stmt.setInt(20, entidade.getCodigoDesconciliacao());
 
-                stmt.setInt(18, entidade.getCodigoDesconciliacao());
+            } else {
+                sql = "UPDATE tb_desconciliacao_ob_paj set NPJ=?,VARIACAO_NPJ = ?, CONTA_CONTROLE=? , CONTA_DEPOSITARIA=? , SALDO_CONTA_CONTROLE=? , SALDO_DEPOSITO=?"
+                        + " , VALOR_DESCONCILIACAO=? , SITUACAO=? , DATA_SITUACAO=? , FUNCIONARIO_RESPONSAVEL_SITUACAO=?"
+                        + " , NOME_TRATAMENTO=? , AVOCADO=?, DATA_AVOCACAO=?, DATA_DESCONCILIACAO=?, OBS_LIVRE = ?,CODIGO_SITUACAO=?,CODIGO_TRATAMENTO=?,TRATADO_PRAZO = ? where CODIGO_DESCONCILIACAO=?";
+                stmt = con.prepareStatement(sql);
+                stmt.setInt(16, entidade.getCodigoSituacao());
+                stmt.setInt(17, entidade.getCodigoTratamento());
+                if (entidade.getDiasDesconciliado() <= 30) {
+                    stmt.setString(18, "SIM");
+                } else {
+                    stmt.setString(18, "NAO");
+                }
+
+                stmt.setInt(19, entidade.getCodigoDesconciliacao());
 
             }
 
             stmt.setString(1, entidade.getNpj());
-            stmt.setString(2, entidade.getContaControle());
-            stmt.setString(3, entidade.getContaDepositaria());
-            stmt.setDouble(4, entidade.getSaldoContaControle());
-            stmt.setDouble(5, entidade.getSaldoDeposito());
+            stmt.setInt(2, entidade.getVariacaoNpj());
+           
+            stmt.setString(3, entidade.getContaControle());
+            stmt.setString(4, entidade.getContaDepositaria());
+            stmt.setDouble(5, entidade.getSaldoContaControle());
+            stmt.setDouble(6, entidade.getSaldoDeposito());
 
-            stmt.setDouble(6, entidade.getValorDesconciliacao());
+            stmt.setDouble(7, entidade.getValorDesconciliacao());
 
-            stmt.setString(7, statusDAO.buscarStatus(entidade.getCodigoSituacao()));
+            stmt.setString(8, statusDAO.buscarStatus(entidade.getCodigoSituacao()));
             entidade.setSituacao(statusDAO.buscarStatus(entidade.getCodigoSituacao()));
             try {
-                stmt.setString(8, Utils.getDataHoraAtualMysql());
+                stmt.setString(9, Utils.getDataHoraAtualMysql());
                 entidade.setDataSituacao(Utils.getDataAtualFormatoMysql());
             } catch (Exception ex) {
                 throw new ErroSistema("Erro ao tentar verificar data atual", ex);
             }
-            stmt.setString(9, usuario.getChave());
-            stmt.setString(10, tratamentoDAO.buscarTratamento(entidade.getCodigoTratamento()));
+            stmt.setString(10, usuario.getChave());
+            stmt.setString(11, tratamentoDAO.buscarTratamento(entidade.getCodigoTratamento()));
             entidade.setNomeTratamento(tratamentoDAO.buscarTratamento(entidade.getCodigoTratamento()));
-            stmt.setString(11, "");
-            stmt.setDate(12, (Date) entidade.getDataAvocacao());
-            stmt.setDate(13, (Date) entidade.getDataDesconciliacao());
-            stmt.setString(14, entidade.getObsLivre());
+            stmt.setString(12, "");
+            stmt.setDate(13, (Date) entidade.getDataAvocacao());
+            stmt.setDate(14, (Date) entidade.getDataDesconciliacao());
+            stmt.setString(15, entidade.getObsLivre());
 
             stmt.executeUpdate();
+            
             salvarHistorico(entidade);
             gerarOrcado(entidade);
 
@@ -116,6 +122,7 @@ public class DesconciliacaoTotalDAO implements CrudDAO<DesconciliacaoOB> {
             ConnectionFactory.fecharConexao();
 
         }
+
 
     }
     
@@ -348,7 +355,14 @@ public class DesconciliacaoTotalDAO implements CrudDAO<DesconciliacaoOB> {
                 desconciliacao.setDataRetornoAgencia(rs.getDate("DATA_RETORNO_AGENCIA"));
                 desconciliacao.setBancoDepositario(rs.getString("BANCO_DEPOSITARIO"));
                 desconciliacao.setIdDesconciliacaoDiris(rs.getString("ID_DESCONCILIACAO_DIRIS"));
-                
+                desconciliacao.setSituacaoNpj(rs.getString("SITUACAO_NPJ"));
+                desconciliacao.setAdvogadoBb(rs.getString("ADVOGADO_BB"));
+                desconciliacao.setDataColetaSituacaoNpj(rs.getDate("DATA_COLETA_SITUACAO_NPJ"));
+                desconciliacao.setDataSaldoContaControle(rs.getDate("DATA_SALDO_CONTA_CONTROLE"));
+                desconciliacao.setOrigem(rs.getString("ORIGEM"));
+                desconciliacao.setSla(rs.getInt("SLA"));
+                desconciliacao.setNaturezaNpj(rs.getString("NATUREZA_NPJ"));
+               
                 desconciliacoes.add(desconciliacao);
 
             }

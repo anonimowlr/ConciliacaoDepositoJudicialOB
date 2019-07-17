@@ -358,6 +358,57 @@ public class Utils {
   clipboard.setContents(selection, null);
 }
     
+  
+  
+  public static String converterToMoney(String v) {
+       String numeroTratado = "";
+ 
+        String carater = v.subSequence(v.length()-2, v.length()-1).toString();
+        
+        if(v.subSequence(v.length()-2, v.length()-1).toString().equals(".") || v.subSequence(v.length()-2, v.length()).toString().equals(",")){
+         v = v + "0";   
+        }
+        
+        
+        if(v.subSequence(0, 1).toString().equals("-")){
+          v =  v.subSequence(1, v.length()).toString();
+          numeroTratado = "-";
+        }
+        
+        
+        int tamanhoValorRecebido = v.length();
+        
+        
+        
+
+        for (int i = 0; i < tamanhoValorRecebido; i++) {
+            double marcador = i/3;
+            String num = v.subSequence(i, i + 1).toString();
+            
+         
+            if (num.equals(".") &&  (i==tamanhoValorRecebido-3 || i == tamanhoValorRecebido-2)) {
+                num = ",";
+                numeroTratado = numeroTratado + num;
+            }
+
+
+            if (num.equals("0") || num.equals("1") || num.equals("2") || num.equals("3") || num.equals("4") || num.equals("5") || num.equals("6") || num.equals("7") || num.equals("8") || num.equals("9")) {
+                numeroTratado = numeroTratado + num;
+
+            }
+            
+               if(tamanhoValorRecebido>4){
+                 if(i == tamanhoValorRecebido- 7 || i == tamanhoValorRecebido-10){
+                   numeroTratado = numeroTratado + ".";  
+                 }
+                   
+                     
+              
+            }
+        }
+
+        return  numeroTratado;
+    }
     
 
 }

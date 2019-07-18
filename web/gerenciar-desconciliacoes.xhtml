@@ -193,7 +193,7 @@
             <p:dataTable scrollWidth="auto" scrollRows="20" scrollable="true" liveScroll="true" scrollHeight="500"   style="font-size: 10pt;width: auto"   value="#{desconciliacaoOBBean.entidades}" var="desconciliacao" rendered="#{desconciliacaoOBBean.isBuscar()}" rows="1" paginator="true">
 
                 <p:column style="width: 150px">
-                    <p:commandButton    style="width: 150px" value="Tratar" action="#{desconciliacaoOBBean.verAvocacao(desconciliacao)}" actionListener="#{solicitacaoLevantamentoBean.buscarPorParametro(desconciliacao.npj)}"   update="@form"> </p:commandButton>  
+                    <p:commandButton    style="width: 150px" value="Tratar" action="#{desconciliacaoOBBean.verAvocacao(desconciliacao)}"   update="@form"> </p:commandButton>  
 
 
                 </p:column>

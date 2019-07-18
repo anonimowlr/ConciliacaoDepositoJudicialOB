@@ -335,7 +335,7 @@ public class DesconciliacaoOBDAO implements CrudDAO<DesconciliacaoOB> {
          DesconciliacaoOB desconciliacao = null;
         try {
             Connection con = ConnectionFactory.conectar("rejud_ob");
-            String sql = "SELECT * FROM rejud_ob.tb_desconciliacao_ob_paj where  (AVOCADO = '' OR AVOCADO IS NULL OR( AVOCADO = 'SIM' AND FUNCIONARIO_ATUAL =  '" + usuario.getChave() + "' ) ) AND (SITUACAO = '' OR SITUACAO IS NULL OR SITUACAO ='INEDITO TRATADO' )  ORDER BY ABS(VALOR_DESCONCILIACAO)DESC LIMIT 1";
+            String sql = "SELECT * FROM rejud_ob.tb_desconciliacao_ob_paj where  (AVOCADO = '' OR AVOCADO IS NULL OR( AVOCADO = 'SIM' AND FUNCIONARIO_ATUAL =  '" + usuario.getChave() + "' ) ) AND (SITUACAO = '' OR SITUACAO IS NULL OR SITUACAO ='INEDITO TRATADO' ) AND NATUREZA_NPJ <> 'TRABALHISTA' ORDER BY ABS(VALOR_DESCONCILIACAO)DESC LIMIT 1";
             PreparedStatement stmt = con.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             List<DesconciliacaoOB> desconciliacoes = new ArrayList<>();
@@ -384,9 +384,13 @@ public class DesconciliacaoOBDAO implements CrudDAO<DesconciliacaoOB> {
             }
 
             
-           if(desconciliacao != null){
-              avocar(desconciliacao);  
-           } 
+          if(desconciliacoes.size()> 0){
+              avocar(desconciliacao);
+           } else{
+               FacesContext context = FacesContext.getCurrentInstance();
+               context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Atenção!!!", "Fim de lista!!" ));
+               
+           }
             return desconciliacoes;
 
         } catch (SQLException ex) {
